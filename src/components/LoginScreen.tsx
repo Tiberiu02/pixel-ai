@@ -24,7 +24,7 @@ export function LoginScreen() {
   const providers = useAsync(() => getProviders());
 
   return (
-    <div className="container flex min-h-screen flex-col items-center justify-center gap-12 px-4 py-16 ">
+    <div className="container flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4 py-16 ">
       <div className="flex flex-col items-center gap-2">
         <div className="flex items-center justify-center gap-4">
           <Image

@@ -9,7 +9,7 @@ export function DashboardScreen() {
   const [page, setPage] = useAtom(pageAtom);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between">
+    <div className="flex min-h-screen w-full flex-col items-center justify-between">
       <div className="flex w-full items-center justify-between p-4">
         <BiLogOut className="h-6 w-6 text-white" onClick={() => signOut()} />
         <BiCog className="h-6 w-6 text-white" />

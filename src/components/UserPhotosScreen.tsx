@@ -28,7 +28,7 @@ export function UserPhotosScreen() {
   };
 
   return (
-    <div className="realtive flex h-screen flex-col items-center justify-between p-4">
+    <div className="realtive flex h-screen w-full flex-col items-center justify-between p-4">
       <div className="flex h-full w-full flex-col gap-16">
         <div className="flex w-full items-center justify-between">
           <BiArrowBack

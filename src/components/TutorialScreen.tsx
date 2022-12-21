@@ -27,7 +27,7 @@ export function TutorialScreen() {
   const [page, setPage] = useAtom(pageAtom);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-between p-4">
+    <div className="flex h-screen w-full flex-col items-center justify-between p-4">
       <div className="flex h-full w-full flex-col gap-8">
         <div className="flex w-full items-center">
           <BiArrowBack

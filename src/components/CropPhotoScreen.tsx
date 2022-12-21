@@ -75,7 +75,7 @@ export function CropPhotoScreen() {
   }, [croppedAreaPixels]);
 
   return (
-    <div className="realtive flex h-screen flex-col items-center justify-between gap-8 bg-black p-4">
+    <div className="realtive flex h-screen w-full flex-col items-center justify-between gap-8 bg-black p-4">
       <div className="h-full w-full p-4">
         <div className="relative h-full w-full">
           <Cropper

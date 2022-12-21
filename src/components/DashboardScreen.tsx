@@ -15,7 +15,7 @@ export function DashboardScreen() {
         <BiCog className="h-6 w-6 text-white" />
       </div>
       <div className="flex flex-col items-center gap-8">
-        <div className="text-3xl">Let's go!</div>
+        <div className="text-3xl">Let&lsquo;s go!</div>
         <Button onClick={() => setPage(Pages.TUTORIAL)} special>
           Generate Photos
         </Button>

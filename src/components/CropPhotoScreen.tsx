@@ -21,28 +21,6 @@ function getBox(width: number, height: number) {
   };
 }
 
-function logImage(url: string, scale = 1) {
-  scale = scale || 1;
-  var img = new Image();
-
-  img.onload = function () {
-    var dim = getBox(img.width * scale, img.height * scale);
-    console.log(
-      "%c" + dim.string,
-      dim.style +
-        "background: url(" +
-        url +
-        "); background-size: " +
-        img.width * scale +
-        "px " +
-        img.height * scale +
-        "px; color: transparent;"
-    );
-  };
-
-  img.src = url;
-}
-
 export function CropPhotoScreen() {
   const [page, setPage] = useAtom(pageAtom);
   const [photos, setPhotos] = useAtom(userPhotosAtom);
@@ -51,10 +29,12 @@ export function CropPhotoScreen() {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  // @ts-ignore
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
+  const onCropComplete = useCallback(
+    (croppedArea: any, croppedAreaPixels: any) => {
+      setCroppedAreaPixels(croppedAreaPixels);
+    },
+    []
+  );
 
   // console.log(photos);
 

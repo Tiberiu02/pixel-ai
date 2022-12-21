@@ -14,10 +14,10 @@ export class ImgData {
 
 export function imgFromBlob(file: Blob) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e) => {
-      let img = new Image();
+      const img = new Image();
       img.onload = () => {
         resolve(img);
       };

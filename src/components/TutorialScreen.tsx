@@ -54,7 +54,7 @@ export function TutorialScreen() {
                 </div>
               ))}
             </div>
-            <div className="text-lg font-bold">DON'Ts</div>
+            <div className="text-lg font-bold">DON&lsquo;Ts</div>
             <div className="wrap flex flex-col gap-2">
               {donts.map((text, i) => (
                 <div key={i} className="flex items-center gap-2">

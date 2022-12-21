@@ -6,7 +6,7 @@ import { getProviders, signIn } from "next-auth/react";
 import { FaDiscord } from "react-icons/fa";
 import { Button } from "./Button";
 
-function query<T>(get: () => Promise<T>): T | undefined {
+function useAsync<T>(get: () => Promise<T>): T | undefined {
   const [data, setData] = useState<T | undefined>(undefined);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const AuthIcons: { [id: string]: JSX.Element } = {
 };
 
 export function LoginScreen() {
-  const providers = query(() => getProviders());
+  const providers = useAsync(() => getProviders());
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center gap-12 px-4 py-16 ">

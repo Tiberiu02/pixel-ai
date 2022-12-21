@@ -35,7 +35,7 @@ export function TutorialScreen() {
             onClick={() => setPage(Pages.DASHBOARD)}
           />
         </div>
-        <div className="flex w-full flex-col gap-8 overflow-scroll">
+        <div className="flex w-full flex-col gap-8 overflow-auto">
           <div className="text-center text-2xl">Read this very carefully</div>
           <div className="flex flex-col gap-4">
             <div>

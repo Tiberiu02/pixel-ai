@@ -55,7 +55,7 @@ export function UserPhotosScreen() {
           className="hidden"
         />
 
-        <div className="flex w-full flex-col items-center gap-16 overflow-scroll">
+        <div className="flex w-full flex-col items-center gap-16 overflow-auto">
           <div className="grid w-full grid-cols-3 gap-6 p-4">
             {photos.map((imageData, i) => (
               <div

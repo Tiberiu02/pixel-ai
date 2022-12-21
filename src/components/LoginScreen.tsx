@@ -39,7 +39,7 @@ export function LoginScreen() {
           </h1>
         </div>
         <h1 className=" text-xl font-light tracking-tight">
-          Let's get you some great new photos!
+          Let&lsquo;s get you some great new photos!
         </h1>
         <div className="my-8 h-1 w-32 rounded-full bg-white opacity-30"></div>
         {providers &&

@@ -40,7 +40,7 @@ export default async function getCroppedImg(
   },
   rotation = 0,
   flip = { horizontal: false, vertical: false }
-): Promise<HTMLImageElement> {
+): Promise<string> {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -91,9 +91,5 @@ export default async function getCroppedImg(
   // return canvas.toDataURL('image/jpeg');
 
   // As a blob
-  return new Promise<HTMLImageElement>((resolve, reject) => {
-    canvas.toBlob((file) => {
-      if (file) resolve(imgFromBlob(file));
-    }, "image/jpeg");
-  });
+  return canvas.toDataURL("image/jpeg");
 }

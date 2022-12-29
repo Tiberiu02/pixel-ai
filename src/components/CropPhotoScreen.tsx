@@ -48,7 +48,7 @@ export function CropPhotoScreen() {
     try {
       if (imgData && imgData.img && croppedAreaPixels) {
         const croppedImgData = await getCroppedImg(
-          imgData.img.src,
+          imgData.img,
           croppedAreaPixels
         );
 
@@ -62,7 +62,7 @@ export function CropPhotoScreen() {
           );
 
           if (uncroppedPhotos.length === 1) {
-            setPage(Pages.UPLOAD_PHOTOS);
+            setPage(Pages.SELECT_PHOTOS);
           } else {
             setCrop({ x: 0, y: 0 });
             setZoom(1);
@@ -79,7 +79,7 @@ export function CropPhotoScreen() {
       <div className="h-full w-full p-4">
         <div className="relative h-full w-full">
           <Cropper
-            image={imgData?.img.src}
+            image={imgData?.img}
             crop={crop}
             zoom={zoom}
             aspect={1}

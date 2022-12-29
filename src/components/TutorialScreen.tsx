@@ -5,6 +5,7 @@ import {
   BiRightArrowAlt,
   BiXCircle,
 } from "react-icons/bi";
+import { IoWarningOutline } from "react-icons/io5";
 import { Button } from "./Button";
 import { pageAtom, Pages } from "./pages";
 
@@ -27,17 +28,18 @@ export function TutorialScreen() {
   const [page, setPage] = useAtom(pageAtom);
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-between p-4">
+    <div className="flex h-screen w-full flex-col items-center justify-between">
       <div className="flex h-full w-full flex-col gap-8">
-        <div className="flex w-full items-center">
+        <div className="flex w-full items-center p-4">
           <BiArrowBack
             className="h-6 w-6 text-white"
-            onClick={() => setPage(Pages.DASHBOARD)}
+            onClick={() => setPage(Pages.AGE_SELECT)}
           />
         </div>
-        <div className="flex w-full flex-col gap-8 overflow-auto">
+        <div className="flex w-full flex-col gap-8 overflow-auto p-4">
+          <IoWarningOutline className="mx-auto shrink-0 text-8xl text-red-500" />
           <div className="text-center text-2xl">Read this very carefully</div>
-          <div className="flex flex-col gap-4">
+          <div className="mx-auto flex max-w-lg flex-col gap-4">
             <div>
               Our AI will need some photos of you to learn how you look and
               generate new, professional photos of you.
@@ -70,7 +72,7 @@ export function TutorialScreen() {
           </div>
 
           <div className="self-end">
-            <Button onClick={() => setPage(Pages.UPLOAD_PHOTOS)}>
+            <Button onClick={() => setPage(Pages.SELECT_PHOTOS)}>
               Upload photos <BiRightArrowAlt />
             </Button>
           </div>

@@ -48,13 +48,36 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id             String          @id @default(cuid())
+  name           String?
+  email          String?         @unique
+  emailVerified  DateTime?
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  uploadedImages UploadedImage[]
+  tasks          Task[]
+}
+
+model Task {
+  id        String   @id @default(cuid())
+  userId    String
+  status    String
+  gender    String
+  age       Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UploadedImage {
+  id        String   @id @default(cuid())
+  userId    String
+  raw       String
+  cropped   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {

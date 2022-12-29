@@ -2,10 +2,12 @@ import { atom } from "jotai";
 
 export enum Pages {
   DASHBOARD,
+  GENDER_SELECT,
+  AGE_SELECT,
   TUTORIAL,
-  UPLOAD_PHOTOS,
+  SELECT_PHOTOS,
   CROP_PHOTO,
-  REVIEW_PHOTOS,
+  UPLOAD_PHOTOS,
 }
 
 export const pageAtom = atom(Pages.DASHBOARD);

@@ -63,7 +63,7 @@ export function UserPhotosScreen() {
                 className="relative aspect-square w-full rounded-md"
                 style={{
                   backgroundImage: `url('${
-                    (imageData.cropped || imageData.img).src
+                    imageData.cropped || imageData.img
                   }')`,
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
@@ -106,7 +106,7 @@ export function UserPhotosScreen() {
         <div className="pointer-events-none absolute inset-0 z-0 -translate-y-[100%] scale-y-[3] bg-gradient-to-t from-black to-transparent"></div>
         {photos.length >= MIN_PHOTOS && (
           <Button
-            onClick={() => setPage(Pages.CROP_PHOTO)}
+            onClick={() => setPage(Pages.UPLOAD_PHOTOS)}
             className="z-10"
             special
           >

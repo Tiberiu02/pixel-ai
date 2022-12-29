@@ -22,7 +22,7 @@ const Home: NextPage = () => {
           media="(prefers-color-scheme: dark)"
         />
       </Head>
-      <main className="min-h-screen w-screen bg-gradient-to-b from-zinc-900 to-black text-white">
+      <main className="min-h-screen w-screen select-none bg-gradient-to-b from-zinc-900 to-black text-white">
         {status == "loading" ? (
           <></>
         ) : status == "unauthenticated" || !session?.user ? (

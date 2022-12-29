@@ -8,6 +8,7 @@ export enum Pages {
   SELECT_PHOTOS,
   CROP_PHOTO,
   UPLOAD_PHOTOS,
+  SETTINGS,
 }
 
 export const pageAtom = atom(Pages.DASHBOARD);

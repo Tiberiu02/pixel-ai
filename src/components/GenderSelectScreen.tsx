@@ -28,7 +28,7 @@ export function GenderSelectScreen() {
         <div className="my-auto flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button
             onClick={() => selectGender(Gender.MAN)}
-            className="w-full gap-3"
+            className="w-full gap-4"
           >
             <MdOutlineMale className="scale-150 text-blue-500" />
             <div className="mx-auto">Man</div>

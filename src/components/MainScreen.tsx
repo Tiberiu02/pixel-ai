@@ -11,6 +11,7 @@ import { CropPhotoScreen } from "./CropPhotoScreen";
 import { GenderSelectScreen } from "./GenderSelectScreen";
 import { AgeSelectScreen } from "./AgeSelectScreen";
 import { UploadScreen } from "./UploadScreen";
+import { SettingsScreen } from "./SettingsScreen";
 
 export function MainScreen({ user }: { user: NonNullable<Session["user"]> }) {
   const [page, setPage] = useAtom(pageAtom);
@@ -33,6 +34,8 @@ export function MainScreen({ user }: { user: NonNullable<Session["user"]> }) {
     return <UserPhotosScreen />;
   } else if (page == Pages.CROP_PHOTO) {
     return <CropPhotoScreen />;
+  } else if (page == Pages.SETTINGS) {
+    return <SettingsScreen />;
   } else if (page == Pages.UPLOAD_PHOTOS) {
     return <UploadScreen />;
   } else {

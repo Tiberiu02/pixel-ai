@@ -63,6 +63,7 @@ export function SettingsScreen() {
           Sign out
         </button>
       </div>
+      <div className="mx-auto mt-auto pb-2 text-zinc-500">© Pixel.AI 2023</div>
     </div>
   );
 }

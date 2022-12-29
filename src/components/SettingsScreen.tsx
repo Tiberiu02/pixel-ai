@@ -21,7 +21,10 @@ export function SettingsScreen() {
       </div>
       <div className="flex flex-col gap-8 p-8 text-xl">
         <div className="flex w-full flex-col items-center rounded-lg bg-zinc-900 p-12 text-center">
-          <img src={session.data?.user!.image!} className="w-20 rounded-full" />
+          <img
+            src={session.data?.user!.image || "/blank-profile-picture.webp"}
+            className="w-20 rounded-full"
+          />
           <div className="mt-8 mb-2 text-center text-2xl">
             {session.data?.user!.name}
           </div>

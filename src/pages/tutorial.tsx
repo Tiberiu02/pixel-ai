@@ -1,11 +1,5 @@
-import { useAtom } from "jotai";
 import { useRouter } from "next/router";
-import {
-  BiArrowBack,
-  BiCheckCircle,
-  BiRightArrowAlt,
-  BiXCircle,
-} from "react-icons/bi";
+import { BiCheckCircle, BiRightArrowAlt, BiXCircle } from "react-icons/bi";
 import { IoWarningOutline } from "react-icons/io5";
 import { Button } from "../components/Button";
 import { Routes } from "../non-components/routes";

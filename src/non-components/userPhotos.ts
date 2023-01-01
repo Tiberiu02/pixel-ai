@@ -13,7 +13,7 @@ export class ImgData {
 }
 
 export function imgFromBlob(file: Blob) {
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<string>((resolve) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e) => {

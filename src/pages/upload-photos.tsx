@@ -3,13 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import Cropper from "react-easy-crop";
-import {
-  BiArrowBack,
-  BiCrop,
-  BiImageAdd,
-  BiRightArrowAlt,
-  BiX,
-} from "react-icons/bi";
+import { BiCrop, BiImageAdd, BiRightArrowAlt, BiX } from "react-icons/bi";
 import { trpc } from "../utils/trpc";
 import { Button } from "../components/Button";
 import { DemandLogin } from "../components/DemandLogin";

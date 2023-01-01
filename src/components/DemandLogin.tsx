@@ -5,12 +5,12 @@ import { Loading } from "./Loading";
 import { Routes } from "../non-components/routes";
 
 export function DemandLogin() {
-  const { data: session, status } = useSession();
+  const session = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "unauthenticated") router.push(Routes.LOGIN);
-  }, [status]);
+    if (session.status === "unauthenticated") router.push(Routes.LOGIN);
+  }, [session, router]);
 
   return <Loading />;
 }

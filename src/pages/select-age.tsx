@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { BiArrowBack, BiRightArrowAlt } from "react-icons/bi";
+import { BiRightArrowAlt } from "react-icons/bi";
 import { twMerge } from "tailwind-merge";
 import { DemandLogin } from "../components/DemandLogin";
 import { Routes } from "../non-components/routes";

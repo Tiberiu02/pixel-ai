@@ -1,7 +1,5 @@
 import { useAtom } from "jotai";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { BiArrowBack } from "react-icons/bi";
 import { MdOutlineFemale, MdOutlineMale } from "react-icons/md";
 import { DemandLogin } from "../components/DemandLogin";
 import { TopBar } from "../components/TopBar";

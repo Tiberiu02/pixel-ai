@@ -1,4 +1,3 @@
-import { useAtom } from "jotai";
 import { signOut, useSession } from "next-auth/react";
 import { BiCog, BiLogOut } from "react-icons/bi";
 import { trpc } from "../utils/trpc";

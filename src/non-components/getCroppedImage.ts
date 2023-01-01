@@ -1,5 +1,3 @@
-import { ImgData, imgFromBlob } from "./userPhotos";
-
 export const createImage = (url: string) =>
   new Promise<HTMLImageElement>((resolve, reject) => {
     const image = new Image();

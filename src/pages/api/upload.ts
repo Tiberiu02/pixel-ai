@@ -1,5 +1,5 @@
 import S3 from "aws-sdk/clients/s3";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 
 const s3 = new S3({

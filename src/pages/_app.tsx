@@ -6,11 +6,18 @@ import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
 import Head from "next/head";
+import { useEffect } from "react";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  useEffect(() => {
+    if (typeof navigator.serviceWorker !== "undefined") {
+      navigator.serviceWorker.register("sw.js");
+    }
+  }, []);
+
   return (
     <>
       <Head>

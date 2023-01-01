@@ -14,7 +14,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <Head>
-        <title>Pixel.AI</title>
+        <title>Pixel.ai</title>
         <link rel="icon" href="/logo.png" />
         <link rel="manifest" href="/app.webmanifest" />
         <link rel="apple-touch-icon" href="/logo.png"></link>

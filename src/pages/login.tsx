@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { getProviders, signIn, useSession } from "next-auth/react";
 
-import { FaDiscord } from "react-icons/fa";
+import { FaDiscord, FaFacebook, FaGoogle } from "react-icons/fa";
 import { Button } from "../components/Button";
 import { Routes } from "../non-components/routes";
 import { useRouter } from "next/router";
@@ -20,6 +20,8 @@ function useAsync<T>(get: () => Promise<T>): T | undefined {
 }
 
 const AuthIcons: { [id: string]: JSX.Element } = {
+  google: <FaGoogle />,
+  facebook: <FaFacebook />,
   discord: <FaDiscord />,
 };
 
@@ -57,14 +59,19 @@ export default function Login() {
           Let&lsquo;s get you some great new photos!
         </h1>
         <div className="my-8 h-1 w-32 rounded-full bg-white opacity-30"></div>
-        {providers &&
-          Object.values(providers).map((provider) => (
-            <div key={provider.name}>
-              <Button onClick={() => signIn(provider.id)}>
-                {AuthIcons[provider.id]} Sign in with {provider.name}
-              </Button>
-            </div>
-          ))}
+        <div className="flex flex-col gap-4">
+          {providers &&
+            Object.values(providers).map((provider) => (
+              <div key={provider.name} className="w-full">
+                <Button
+                  onClick={() => signIn(provider.id)}
+                  className="flex items-center gap-4"
+                >
+                  {AuthIcons[provider.id]} Sign in with {provider.name}
+                </Button>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );

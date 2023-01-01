@@ -41,25 +41,25 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4 py-16 ">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 px-4 py-16 ">
+      <div className="flex items-center justify-center gap-4">
+        <Image
+          className="mt-1 h-8 w-8 opacity-90"
+          src="/logo.png"
+          width={256}
+          height={256}
+          alt="logo"
+        />
+        <h1 className="text-4xl font-extrabold tracking-tight">
+          Pixel<span className="text-[hsl(0,0%,50%)]">.</span>ai
+        </h1>
+      </div>
       <div className="flex flex-col items-center gap-2">
-        <div className="flex items-center justify-center gap-4">
-          <Image
-            className="mt-1 h-8 w-8 opacity-90"
-            src="/logo.png"
-            width={256}
-            height={256}
-            alt="logo"
-          />
-          <h1 className="text-4xl font-extrabold tracking-tight">
-            Pixel<span className="text-[hsl(0,0%,50%)]">.</span>AI
-          </h1>
-        </div>
-        <h1 className=" text-xl font-light tracking-tight">
+        <h1 className="text-xl font-light tracking-tight">
           Let&lsquo;s get you some great new photos!
         </h1>
-        <div className="my-8 h-1 w-32 rounded-full bg-white opacity-30"></div>
-        <div className="flex flex-col gap-4">
+        <div className="my-4 h-0 w-32 rounded-full bg-white opacity-30"></div>
+        <div className="mt-0 flex flex-col gap-4">
           {providers &&
             Object.values(providers).map((provider) => (
               <div key={provider.name} className="w-full">

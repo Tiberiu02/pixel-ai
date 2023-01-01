@@ -18,14 +18,14 @@ export default function Settings() {
       <div className="flex flex-col gap-8 p-8 text-xl">
         <div className="flex w-full flex-col items-center rounded-lg bg-zinc-900 p-12 text-center">
           <img
-            src={session.data?.user!.image || "/blank-profile-picture.webp"}
+            src={session.data?.user?.image || "/blank-profile-picture.webp"}
             className="w-20 rounded-full"
           />
           <div className="mt-8 mb-2 text-center text-2xl">
-            {session.data?.user!.name}
+            {session.data?.user?.name}
           </div>
           <div className="text-center text-base text-zinc-400">
-            {session.data?.user!.email}
+            {session.data?.user?.email}
           </div>
         </div>
         <div className="flex items-center justify-between rounded-lg bg-zinc-900 p-6 text-xl">

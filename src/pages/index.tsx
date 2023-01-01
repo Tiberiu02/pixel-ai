@@ -46,7 +46,7 @@ export default function DashboardScreen() {
       ) : (
         <>
           <div className="flex flex-col items-center gap-8">
-            <div className="text-3xl">Let&lsquo;s go!</div>
+            <div className="text-3xl">Let&rsquo;s go!</div>
             <Button onClick={() => router.push(Routes.GENDER_SELECT)} special>
               Generate Photos
             </Button>

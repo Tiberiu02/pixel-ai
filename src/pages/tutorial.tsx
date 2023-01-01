@@ -1,4 +1,5 @@
 import { useAtom } from "jotai";
+import { useRouter } from "next/router";
 import {
   BiArrowBack,
   BiCheckCircle,
@@ -6,8 +7,9 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 import { IoWarningOutline } from "react-icons/io5";
-import { Button } from "./Button";
-import { pageAtom, Pages } from "./pages";
+import { Button } from "../components/Button";
+import { Routes } from "../non-components/routes";
+import { TopBar } from "../components/TopBar";
 
 const dos = [
   "Upload at least 15 photos of you",
@@ -24,18 +26,14 @@ const donts = [
   "Unusual accesories or equipment",
 ];
 
-export function TutorialScreen() {
-  const [page, setPage] = useAtom(pageAtom);
+export default function Tutorial() {
+  const router = useRouter();
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-between">
       <div className="flex h-full w-full flex-col gap-8">
-        <div className="flex w-full items-center p-4">
-          <BiArrowBack
-            className="h-6 w-6 text-white"
-            onClick={() => setPage(Pages.AGE_SELECT)}
-          />
-        </div>
+        <TopBar />
+
         <div className="flex w-full flex-col gap-8 overflow-auto p-4">
           <IoWarningOutline className="mx-auto shrink-0 text-8xl text-red-500" />
           <div className="text-center text-2xl">Read this very carefully</div>
@@ -72,7 +70,7 @@ export function TutorialScreen() {
           </div>
 
           <div className="self-end">
-            <Button onClick={() => setPage(Pages.SELECT_PHOTOS)}>
+            <Button onClick={() => router.push(Routes.UPLOAD_PHOTOS)}>
               Upload photos <BiRightArrowAlt />
             </Button>
           </div>

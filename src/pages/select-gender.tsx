@@ -1,28 +1,31 @@
 import { useAtom } from "jotai";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { BiArrowBack } from "react-icons/bi";
 import { MdOutlineFemale, MdOutlineMale } from "react-icons/md";
-import { Button } from "./Button";
-import { pageAtom, Pages } from "./pages";
-import { Gender, genderAtom } from "./userOptions";
+import { Button } from "../components/Button";
+import { DemandLogin } from "../components/DemandLogin";
+import { Routes } from "../non-components/routes";
+import { TopBar } from "../components/TopBar";
+import { Gender, genderAtom } from "../non-components/userOptions";
 
-export function GenderSelectScreen() {
-  const [page, setPage] = useAtom(pageAtom);
+export default function GenderSelectScreen() {
+  const session = useSession();
+  const router = useRouter();
   const [gender, setGender] = useAtom(genderAtom);
+
+  if (!session) return <DemandLogin />;
 
   const selectGender = (gender: Gender) => {
     console.log("Selected", gender);
     setGender(gender);
-    setPage(Pages.AGE_SELECT);
+    router.push(Routes.AGE_SELECT);
   };
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center">
-      <div className="flex w-full items-center justify-between p-4">
-        <BiArrowBack
-          className="h-6 w-6 text-white"
-          onClick={() => setPage(Pages.DASHBOARD)}
-        />
-      </div>
+      <TopBar />
+
       <div className="my-auto flex flex-col items-center justify-center gap-12 p-16">
         <div className="text-center text-xl">Please select your gender</div>
         <div className="my-auto flex flex-col items-center justify-center gap-4 sm:flex-row">

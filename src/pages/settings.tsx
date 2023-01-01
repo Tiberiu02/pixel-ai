@@ -1,24 +1,22 @@
 import { useAtom } from "jotai";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { BiArrowBack } from "react-icons/bi";
 import { MdOutlineFemale, MdOutlineMale } from "react-icons/md";
-import { Button } from "./Button";
-import { pageAtom, Pages } from "./pages";
-import { ageAtom, Gender, genderAtom } from "./userOptions";
+import { DemandLogin } from "../components/DemandLogin";
+import { TopBar } from "../components/TopBar";
+import { ageAtom, Gender, genderAtom } from "../non-components/userOptions";
 
-export function SettingsScreen() {
-  const [page, setPage] = useAtom(pageAtom);
+export default function Settings() {
+  const session = useSession();
   const [gender, setGender] = useAtom(genderAtom);
   const [age, setAge] = useAtom(ageAtom);
-  const session = useSession();
+
+  if (!session.data) return <DemandLogin />;
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <div className="flex w-full items-center p-4">
-        <button onClick={() => setPage(Pages.DASHBOARD)}>
-          <BiArrowBack className="h-6 w-6 text-white" />
-        </button>
-      </div>
+      <TopBar />
       <div className="flex flex-col gap-8 p-8 text-xl">
         <div className="flex w-full flex-col items-center rounded-lg bg-zinc-900 p-12 text-center">
           <img

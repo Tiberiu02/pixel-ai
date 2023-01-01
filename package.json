@@ -27,6 +27,7 @@
     "react-easy-crop": "^4.6.3",
     "react-icons": "^4.7.1",
     "react-query": "^3.39.2",
+    "react-spinners": "^0.13.7",
     "superjson": "1.9.1",
     "tailwind-merge": "^1.8.0",
     "zod": "^3.18.0"

@@ -1,29 +1,24 @@
 import { useAtom } from "jotai";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { BiArrowBack, BiRightArrowAlt } from "react-icons/bi";
-import { MdOutlineFemale, MdOutlineMale } from "react-icons/md";
 import { twMerge } from "tailwind-merge";
-import { Button } from "./Button";
-import { pageAtom, Pages } from "./pages";
-import { ageAtom, Gender, genderAtom } from "./userOptions";
+import { DemandLogin } from "../components/DemandLogin";
+import { Routes } from "../non-components/routes";
+import { TopBar } from "../components/TopBar";
+import { ageAtom } from "../non-components/userOptions";
 
-export function AgeSelectScreen() {
-  const [page, setPage] = useAtom(pageAtom);
+export default function AgeSelect() {
+  const session = useSession();
   const [age, setAge] = useAtom(ageAtom);
+  const router = useRouter();
 
-  const selectAge = (age: number) => {
-    console.log("Selected", age);
-    setAge(age);
-    setPage(Pages.TUTORIAL);
-  };
+  if (!session) return <DemandLogin />;
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center">
-      <div className="flex w-full items-center justify-between p-4">
-        <BiArrowBack
-          className="h-6 w-6 text-white"
-          onClick={() => setPage(Pages.GENDER_SELECT)}
-        />
-      </div>
+      <TopBar />
+
       <div className="my-auto flex flex-col items-center justify-center gap-12 p-16">
         <div className="text-center text-xl">Please type your age</div>
         <div className="group flex items-center rounded-full border-2 border-zinc-500 py-2 px-2 text-3xl focus-within:border-white">
@@ -38,7 +33,7 @@ export function AgeSelectScreen() {
               "text-5xl",
               age && age > 0 && age < 150 ? "" : "invisible"
             )}
-            onClick={() => setPage(Pages.TUTORIAL)}
+            onClick={() => router.push(Routes.TUTORIAL)}
           >
             <BiRightArrowAlt />
           </button>

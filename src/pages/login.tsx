@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import { getProviders, signIn } from "next-auth/react";
+import { getProviders, signIn, useSession } from "next-auth/react";
 
 import { FaDiscord } from "react-icons/fa";
-import { Button } from "./Button";
+import { Button } from "../components/Button";
+import { Routes } from "../non-components/routes";
+import { useRouter } from "next/router";
+import { Loading } from "../components/Loading";
 
 function useAsync<T>(get: () => Promise<T>): T | undefined {
   const [data, setData] = useState<T | undefined>(undefined);
@@ -20,8 +23,20 @@ const AuthIcons: { [id: string]: JSX.Element } = {
   discord: <FaDiscord />,
 };
 
-export function LoginScreen() {
+export default function Login() {
+  const session = useSession();
+  const router = useRouter();
   const providers = useAsync(() => getProviders());
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.push(Routes.HOME);
+    }
+  }, [session]);
+
+  if (session.status !== "unauthenticated") {
+    return <Loading />;
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4 py-16 ">

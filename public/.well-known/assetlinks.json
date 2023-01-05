@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "com.pixelaibeta.app.twa",
+                     "sha256_cert_fingerprints": ["99:BE:E2:50:00:32:D3:C9:E4:F2:5F:2D:DC:3A:90:AB:B2:6E:BD:72:D6:ED:27:C6:66:33:8A:53:9C:47:7A:54"] }
+      }
+]

@@ -1,14 +1,20 @@
 import { useAtom } from "jotai";
 import { signOut, useSession } from "next-auth/react";
+import { useState } from "react";
+import { BiLogOut, BiTrash } from "react-icons/bi";
 import { MdOutlineFemale, MdOutlineMale } from "react-icons/md";
 import { DemandLogin } from "../components/DemandLogin";
 import { TopBar } from "../components/TopBar";
 import { ageAtom, Gender, genderAtom } from "../non-components/userOptions";
+import { trpc } from "../utils/trpc";
 
 export default function Settings() {
   const session = useSession();
   const [gender, setGender] = useAtom(genderAtom);
   const [age, setAge] = useAtom(ageAtom);
+  const [showDelete, setShowDelete] = useState(false);
+
+  const deleteAccount = trpc.account.delete.useMutation();
 
   if (!session.data) return <DemandLogin />;
 
@@ -55,14 +61,53 @@ export default function Settings() {
             onChange={(e) => setAge(parseInt(e.target.value) || null)}
           />
         </div>
-        <button
-          className="w-fit self-center rounded-full bg-zinc-900 px-8 py-4"
-          onClick={() => signOut()}
-        >
-          Sign out
-        </button>
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 self-center">
+          <button
+            className="flex w-fit shrink-0 items-center gap-3 rounded-full bg-zinc-900 px-8 py-4"
+            onClick={() => signOut()}
+          >
+            <BiLogOut />
+            Sign out
+          </button>
+          <button
+            className="flex w-fit shrink-0 items-center gap-2 rounded-full bg-red-500 bg-opacity-50 px-8 py-4"
+            onClick={() => setShowDelete(true)}
+          >
+            <BiTrash />
+            Delete account
+          </button>
+        </div>
       </div>
       <div className="mx-auto mt-auto pb-2 text-zinc-500">© Pixel.AI 2023</div>
+      {showDelete && (
+        <div className="fixed inset-0 flex items-center justify-center">
+          <div
+            className="absolute inset-0 bg-black bg-opacity-50"
+            onClick={() => setShowDelete(false)}
+          />
+          <div className="relative flex flex-col items-center gap-2 rounded-xl bg-zinc-900 p-8">
+            <div className="mb-4 text-xl">Are you sure?</div>
+            <div className="flex gap-4">
+              <button
+                className="flex w-fit shrink-0 items-center gap-3 rounded-full bg-zinc-800 px-5 py-2"
+                onClick={() => setShowDelete(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="flex w-fit shrink-0 items-center gap-2 rounded-full bg-red-500 bg-opacity-50 px-5 py-2"
+                onClick={async () => {
+                  setShowDelete(false);
+                  await deleteAccount.mutateAsync();
+                  signOut();
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

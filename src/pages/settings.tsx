@@ -61,7 +61,7 @@ export default function Settings() {
             onChange={(e) => setAge(parseInt(e.target.value) || null)}
           />
         </div>
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 self-center">
+        <div className="flex flex-col items-center gap-x-8 gap-y-4 self-center">
           <button
             className="flex w-fit shrink-0 items-center gap-3 rounded-full bg-zinc-900 px-8 py-4"
             onClick={() => signOut()}
@@ -70,7 +70,7 @@ export default function Settings() {
             Sign out
           </button>
           <button
-            className="flex w-fit shrink-0 items-center gap-2 rounded-full bg-red-500 bg-opacity-50 px-8 py-4"
+            className="flex w-fit shrink-0 items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm"
             onClick={() => setShowDelete(true)}
           >
             <BiTrash />

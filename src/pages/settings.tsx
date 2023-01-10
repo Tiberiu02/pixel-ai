@@ -34,33 +34,6 @@ export default function Settings() {
             {session.data?.user?.email}
           </div>
         </div>
-        <div className="flex items-center justify-between rounded-lg bg-zinc-900 p-6 text-xl">
-          Gender
-          <div className="flex items-center gap-4 text-3xl">
-            <button onClick={() => setGender(Gender.WOMAN)}>
-              <MdOutlineFemale
-                className={
-                  gender == Gender.WOMAN ? "text-pink-500" : "text-zinc-600"
-                }
-              />
-            </button>
-            <button onClick={() => setGender(Gender.MAN)}>
-              <MdOutlineMale
-                className={
-                  gender == Gender.MAN ? "text-blue-500" : "text-zinc-600"
-                }
-              />
-            </button>
-          </div>
-        </div>
-        <div className="flex items-center justify-between rounded-lg bg-zinc-900 p-6 text-xl">
-          Age
-          <input
-            className="w-12 border-b-2 border-zinc-500 bg-transparent text-right focus:border-white focus:outline-0"
-            value={age || ""}
-            onChange={(e) => setAge(parseInt(e.target.value) || null)}
-          />
-        </div>
         <div className="flex flex-col items-center gap-x-8 gap-y-4 self-center">
           <button
             className="flex w-fit shrink-0 items-center gap-3 rounded-full bg-zinc-900 px-8 py-4"

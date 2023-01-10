@@ -8,7 +8,7 @@ import { TopBar } from "../components/TopBar";
 const dos = [
   "Upload at least 15 photos of you",
   "Diferent poses, angles, and environments",
-  "Have both full body & face only photos",
+  "Have both full body & close-up photos",
   "Clearly visible face",
   "Good lighting",
 ];
@@ -33,11 +33,8 @@ export default function Tutorial() {
           <div className="text-center text-2xl">Read this very carefully</div>
           <div className="mx-auto flex max-w-lg flex-col gap-4">
             <div>
-              Our AI will need some photos of you to learn how you look and
-              generate new, professional photos of you.
-            </div>
-            <div>
-              The better the photos you provide, the better the results will be.
+              Our AI will need some photos of you. The better the photos you
+              provide, the better the results will be.
             </div>
             <div>Please follow the rules below as closely as possible.</div>
             <div className="text-lg font-bold">DOs</div>
@@ -56,11 +53,11 @@ export default function Tutorial() {
                 </div>
               ))}
             </div>
-            <div>
+            {/* <div>
               Our AI works best with square images. After selecting your photos,
               you will pe asked to crop them as squares. Include as much as
               possible your own face and body. Crop out everything else.
-            </div>
+            </div> */}
           </div>
 
           <div className="self-end">

@@ -28,8 +28,6 @@ export default function UserPhotos() {
 
   if (uploading) {
     return <UploadPhotos photos={photos} setPhotos={setPhotos} />;
-  } else if (photos.some((p) => !p.cropped)) {
-    return <CropPhotos photos={photos} setPhotos={setPhotos} />;
   } else {
     return (
       <SelectPhotos
@@ -50,8 +48,6 @@ function SelectPhotos({
   setPhotos: (photos: ImgData[]) => void;
   setUploading: (uploading: boolean) => void;
 }) {
-  const router = useRouter();
-
   const fileHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const files = Array.from(event.target.files);
@@ -248,7 +244,7 @@ export function UploadPhotos({
     let forceExit = false;
 
     (async () => {
-      const numTasks = photos.length * 2;
+      const numTasks = photos.length;
       const progressPerTask = 1 / numTasks;
 
       await clearUploads.mutateAsync();
@@ -256,19 +252,18 @@ export function UploadPhotos({
 
       for await (const photo of photos) {
         const rawName = photo.id + "_raw.jpg";
-        const croppedName = photo.id + "_cropped.jpg";
-        console.log(rawName, croppedName);
+        // const croppedName = photo.id + "_cropped.jpg";
 
         setProgress((progress += progressPerTask));
         await uploadJpeg(rawName, photo.img);
         if (forceExit) return;
-        setProgress((progress += progressPerTask));
-        await uploadJpeg(croppedName, photo.cropped!);
-        if (forceExit) return;
+        // setProgress((progress += progressPerTask));
+        // await uploadJpeg(croppedName, photo.cropped!);
+        // if (forceExit) return;
 
         await addImage.mutateAsync({
           raw: rawName,
-          cropped: croppedName,
+          // cropped: croppedName,
         });
         if (forceExit) return;
       }

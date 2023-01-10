@@ -1,6 +1,13 @@
+import S3 from "aws-sdk/clients/s3";
 import { z } from "zod";
 
 import { router, publicProcedure, protectedProcedure } from "../trpc";
+
+const s3 = new S3({
+  accessKeyId: process.env.S3_ACCESS,
+  secretAccessKey: process.env.S3_SECRET,
+  region: process.env.S3_REGION,
+});
 
 export const imagesRouter = router({
   upload: protectedProcedure
@@ -19,6 +26,25 @@ export const imagesRouter = router({
       where: {
         userId: ctx.session.user.id,
       },
+    });
+  }),
+
+  getGeneratedImages: protectedProcedure.query(async ({ ctx }) => {
+    const images = await ctx.prisma.generatedImage.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+
+    return images.map((image) => {
+      let params = {
+        Bucket: process.env.S3_BUCKET,
+        Key: `users/${ctx.session.user.id}/${image.image}`,
+        Expires: 3600,
+        ResponseContentDisposition: `attachment; filename="Pixel-AI.jpg"`,
+      };
+      let url = s3.getSignedUrl("getObject", params);
+      return url;
     });
   }),
 });

@@ -59,13 +59,16 @@ function SelectPhotos({
 
       for (const f of files) {
         imgFromBlob(f).then((img) => {
-          setPhotos((photos) => [
-            ...photos,
-            {
-              ...new ImgData(img),
-              uploadPromise: uploadJpeg(f.name, img),
-            } as ImgData,
-          ]);
+          setPhotos((photos) => {
+            const imgData = new ImgData(img);
+            return [
+              ...photos,
+              {
+                ...imgData,
+                uploadPromise: uploadJpeg(imgData.id + ".jpg", img),
+              } as ImgData,
+            ];
+          });
           setLoadingPhotos((cnt) => cnt - 1);
         });
       }

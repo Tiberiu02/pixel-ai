@@ -20,7 +20,12 @@ export const tasksRouter = router({
       },
     });
   }),
-  working: protectedProcedure.query(async ({ ctx }) => {
+  status: protectedProcedure.query(async ({ ctx }) => {
+    const tasks = await ctx.prisma.task.count({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
     const tasksInProgress = await ctx.prisma.task.count({
       where: {
         userId: ctx.session.user.id,
@@ -28,6 +33,8 @@ export const tasksRouter = router({
       },
     });
 
-    return tasksInProgress > 0;
+    if (tasksInProgress > 0) return "WAITING";
+    else if (tasks > 0) return "DONE";
+    else return "NONE";
   }),
 });

@@ -100,26 +100,12 @@ function SelectPhotos({
                 }}
               >
                 <button
-                  className="absolute flex h-8 w-8 translate-x-[-15%] -translate-y-1/3 items-center justify-center  rounded-full bg-red-500 text-3xl shadow-md"
+                  className="absolute flex h-8 w-8 -translate-x-1/3 -translate-y-1/3 items-center justify-center  rounded-full bg-red-500 text-3xl shadow-md"
                   onClick={() => {
                     setPhotos(photos.filter((img) => img.id !== imageData.id));
                   }}
                 >
                   <BiX />
-                </button>
-                <button
-                  className="absolute right-0 flex h-8 w-8 translate-x-[15%] -translate-y-1/3 items-center justify-center  rounded-full bg-blue-500 p-1 text-xl shadow-md"
-                  onClick={() => {
-                    setPhotos(
-                      photos.map((img) =>
-                        img.id === imageData.id
-                          ? { ...img, cropped: undefined }
-                          : img
-                      )
-                    );
-                  }}
-                >
-                  <BiCrop />
                 </button>
               </div>
             ))}

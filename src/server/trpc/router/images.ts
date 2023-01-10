@@ -37,13 +37,13 @@ export const imagesRouter = router({
     });
 
     return images.map((image) => {
-      let params = {
+      const params = {
         Bucket: process.env.S3_BUCKET,
         Key: `users/${ctx.session.user.id}/${image.image}`,
         Expires: 3600,
         ResponseContentDisposition: `attachment; filename="Pixel-AI.jpg"`,
       };
-      let url = s3.getSignedUrl("getObject", params);
+      const url = s3.getSignedUrl("getObject", params);
       return url;
     });
   }),

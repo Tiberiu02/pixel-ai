@@ -6,6 +6,7 @@ export const MAX_PHOTOS = 50;
 export class ImgData {
   id: string;
   cropped?: string;
+  uploadPromise?: Promise<void>;
 
   constructor(public img: string) {
     this.id = Math.random().toString(36).slice(2, 9);

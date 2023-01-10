@@ -31,7 +31,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           media="(prefers-color-scheme: dark)"
         />
       </Head>
-      <main className="h-screen w-screen select-none overflow-auto bg-gradient-to-b from-zinc-900 to-black text-white">
+      <main className="relative h-screen w-screen select-none overflow-auto bg-gradient-to-b from-zinc-900 to-black text-white">
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>

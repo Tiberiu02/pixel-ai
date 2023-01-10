@@ -32,7 +32,7 @@ export default async function handler(
     },
     Expires: 60, // seconds
     Conditions: [
-      ["content-length-range", 0, 10485760], // up to 10 MB
+      ["content-length-range", 0, 1048576 * 20], // up to 20 MB
     ],
   });
 

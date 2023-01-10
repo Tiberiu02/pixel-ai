@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Cropper from "react-easy-crop";
 import { BiCrop, BiImageAdd, BiRightArrowAlt, BiX } from "react-icons/bi";
 import { trpc } from "../utils/trpc";
@@ -16,8 +16,9 @@ import {
   MIN_PHOTOS,
   userPhotosAtom,
 } from "../non-components/userPhotos";
-import { RingLoader } from "react-spinners";
+import { BeatLoader, RingLoader } from "react-spinners";
 import { TopBar } from "../components/TopBar";
+import { twMerge } from "tailwind-merge";
 
 export default function UserPhotos() {
   const [photos, setPhotos] = useAtom(userPhotosAtom);
@@ -45,91 +46,121 @@ function SelectPhotos({
   setUploading,
 }: {
   photos: ImgData[];
-  setPhotos: (photos: ImgData[]) => void;
+  setPhotos: (update: SetStateAction<ImgData[]>) => void;
   setUploading: (uploading: boolean) => void;
 }) {
+  const [loadingPhotos, setLoadingPhotos] = useState(0);
+
   const fileHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const files = Array.from(event.target.files);
-      setPhotos(
-        (
-          await Promise.all(
-            files.map(async (f) => new ImgData(await imgFromBlob(f)))
-          )
-        ).concat(photos)
-      );
+
+      setLoadingPhotos((cnt) => cnt + files.length);
+
+      for (const f of files) {
+        imgFromBlob(f).then((img) => {
+          setPhotos((photos) => [
+            ...photos,
+            {
+              ...new ImgData(img),
+              uploadPromise: uploadJpeg(f.name, img),
+            } as ImgData,
+          ]);
+          setLoadingPhotos((cnt) => cnt - 1);
+        });
+      }
     }
   };
 
   return (
-    <div className="realtive flex h-screen w-full flex-col items-center justify-between">
-      <TopBar />
+    <>
+      <div className="relative flex h-screen w-full flex-col items-center justify-between">
+        <TopBar />
+        <div className="flex h-full w-full flex-col gap-16 overflow-hidden p-4">
+          <div className="flex w-full flex-col items-center gap-4">
+            <label htmlFor="image-upload">
+              <Button className="relative">
+                {loadingPhotos > 0 && (
+                  <BeatLoader
+                    color="#fff"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  />
+                )}
+                <BiImageAdd
+                  className={twMerge(
+                    "text-4xl",
+                    loadingPhotos ? "invisible" : ""
+                  )}
+                />{" "}
+                <div
+                  className={twMerge(
+                    "text-base",
+                    loadingPhotos ? "invisible" : ""
+                  )}
+                >
+                  Add photos
+                </div>
+              </Button>
+            </label>
+          </div>
 
-      <div className="flex h-full w-full flex-col gap-16 p-4">
-        <div className="flex w-full flex-col items-center gap-4">
-          <label htmlFor="image-upload">
-            <Button>
-              <BiImageAdd className="text-4xl" />{" "}
-              <div className="text-base">Add photos</div>
-            </Button>
-          </label>
-        </div>
+          <input
+            type="file"
+            id="image-upload"
+            multiple
+            accept="image/*"
+            onChange={fileHandler}
+            className="hidden"
+          />
 
-        <input
-          type="file"
-          id="image-upload"
-          multiple
-          accept="image/*"
-          onChange={fileHandler}
-          className="hidden"
-        />
-
-        <div className="flex w-full flex-col items-center gap-16 overflow-auto">
-          <div className="grid w-full grid-cols-3 gap-6 p-4">
-            {photos.map((imageData, i) => (
-              <div
-                key={imageData.id}
-                className="relative aspect-square w-full rounded-md"
-                style={{
-                  backgroundImage: `url('${
-                    imageData.cropped || imageData.img
-                  }')`,
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                }}
-              >
-                <button
-                  className="absolute flex h-8 w-8 -translate-x-1/3 -translate-y-1/3 items-center justify-center  rounded-full bg-red-500 text-3xl shadow-md"
-                  onClick={() => {
-                    setPhotos(photos.filter((img) => img.id !== imageData.id));
+          <div className="flex w-full flex-col items-center gap-16 overflow-auto">
+            <div className="grid w-full grid-cols-3 gap-6 p-4">
+              {photos.map((imageData, i) => (
+                <div
+                  key={imageData.id}
+                  className="relative aspect-square w-full rounded-md"
+                  style={{
+                    backgroundImage: `url('${
+                      imageData.cropped || imageData.img
+                    }')`,
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
                   }}
                 >
-                  <BiX />
-                </button>
-              </div>
-            ))}
-            <div key="blank-1" className="aspect-square w-full"></div>
-            <div key="blank-2" className="aspect-square w-full"></div>
-            <div key="blank-3" className="aspect-square w-full"></div>
+                  <button
+                    className="absolute flex h-8 w-8 -translate-x-1/3 -translate-y-1/3 items-center justify-center  rounded-full bg-red-500 text-3xl shadow-md"
+                    onClick={() => {
+                      setPhotos(
+                        photos.filter((img) => img.id !== imageData.id)
+                      );
+                    }}
+                  >
+                    <BiX />
+                  </button>
+                </div>
+              ))}
+              <div key="blank-1" className="aspect-square w-full"></div>
+              <div key="blank-2" className="aspect-square w-full"></div>
+              <div key="blank-3" className="aspect-square w-full"></div>
+            </div>
           </div>
         </div>
       </div>
-
-      <div className="fixed bottom-0 flex w-full flex-col items-end p-4">
+      <div className="absolute bottom-0 flex w-full flex-col items-end p-4">
         <div className="pointer-events-none absolute inset-0 z-0 -translate-y-[100%] scale-y-[3] bg-gradient-to-t from-black to-transparent"></div>
-        {photos.length >= MIN_PHOTOS && (
+        {photos.length >= MIN_PHOTOS && !loadingPhotos && (
           <Button onClick={() => setUploading(true)} className="z-10" special>
             Start <BiRightArrowAlt />
           </Button>
         )}
-        {photos.length > 0 && photos.length < MIN_PHOTOS && (
+        {photos.length > 0 && photos.length < MIN_PHOTOS && !loadingPhotos && (
           <div className="z-10 flex items-center gap-2 self-center rounded-full bg-red-500 px-4 py-2 font-semibold text-white no-underline shadow-lg transition">
             Please add at least {MIN_PHOTOS} photos
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 
@@ -226,39 +257,30 @@ export function UploadPhotos({
   const addTask = trpc.tasks.create.useMutation();
 
   useEffect(() => {
-    let progress = 0;
     let forceExit = false;
 
     (async () => {
-      const numTasks = photos.length;
+      const numTasks = photos.length + 1;
       const progressPerTask = 1 / numTasks;
 
-      await clearUploads.mutateAsync();
       if (forceExit) return;
+      await clearUploads.mutateAsync();
 
-      for await (const photo of photos) {
-        const rawName = photo.id + "_raw.jpg";
-        // const croppedName = photo.id + "_cropped.jpg";
+      if (forceExit) return;
+      setProgress(progressPerTask);
 
-        setProgress((progress += progressPerTask));
-        await uploadJpeg(rawName, photo.img);
-        if (forceExit) return;
-        // setProgress((progress += progressPerTask));
-        // await uploadJpeg(croppedName, photo.cropped!);
-        // if (forceExit) return;
-
-        await addImage.mutateAsync({
-          raw: rawName,
-          // cropped: croppedName,
+      for (const photo of photos) {
+        photo.uploadPromise?.then(() => {
+          if (forceExit) return;
+          setProgress((progress) => progress + progressPerTask);
+          addImage.mutateAsync({ fileName: photo.id + ".jpg" });
         });
-        if (forceExit) return;
       }
 
-      await addTask.mutateAsync({
-        gender: gender as Gender,
-        age: age as number,
-      });
+      await Promise.all(photos.map((photo) => photo.uploadPromise));
+
       if (forceExit) return;
+      await addTask.mutateAsync();
 
       router.push(Routes.HOME);
     })();

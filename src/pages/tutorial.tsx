@@ -10,6 +10,7 @@ const dos = [
   "Diferent poses, angles, and environments",
   "Have both full body & close-up photos",
   "Clearly visible face",
+  "Looking at the camera",
   "Good lighting",
 ];
 const donts = [
@@ -18,6 +19,7 @@ const donts = [
   "Hats",
   "Group photos, other people",
   "Unusual accesories or equipment",
+  "Turned away from the camera",
 ];
 
 export default function Tutorial() {
@@ -62,7 +64,7 @@ export default function Tutorial() {
 
           <div className="self-end">
             <Button onClick={() => router.push(Routes.UPLOAD_PHOTOS)}>
-              Upload photos <BiRightArrowAlt />
+              Select photos <BiRightArrowAlt />
             </Button>
           </div>
         </div>

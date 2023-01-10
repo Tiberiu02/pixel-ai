@@ -51,9 +51,12 @@ export default function DashboardScreen() {
     refetchInterval: 1000 * 60 * 5,
   });
 
+  console.log(generatedImages.data);
+
   useEffect(() => {
     if (status.data == "DONE" && !generatedImages.data) {
       generatedImages.refetch();
+      console.log("refetching");
     }
   }, [status.data]);
 

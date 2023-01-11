@@ -259,7 +259,6 @@ export function UploadPhotos({
   const router = useRouter();
 
   const [progress, setProgress] = useState(0);
-  const [notifyStart, setNotifyStart] = useAtom(notifyStartAtom);
 
   const clearUploads = trpc.images.clearUploads.useMutation();
   const addImage = trpc.images.upload.useMutation();
@@ -291,7 +290,22 @@ export function UploadPhotos({
       if (forceExit) return;
       await addTask.mutateAsync();
 
-      setNotifyStart(true);
+      alert("sending notification");
+
+      const result = await Notification.requestPermission();
+      alert(JSON.stringify(result));
+      if (result === "granted") {
+        alert("notification sent");
+        const notifTitle = "Pixel.ai";
+        const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
+        const notifImg = `/logo.png`;
+        const options = {
+          body: notifBody,
+          icon: notifImg,
+        };
+        new Notification(notifTitle, options);
+      }
+
       router.push(Routes.HOME);
     })();
 

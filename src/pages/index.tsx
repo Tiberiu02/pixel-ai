@@ -61,29 +61,6 @@ export default function DashboardScreen() {
     refetchInterval: 1000 * 60 * 5,
   });
   const [images, setImages] = useState<string[]>([]);
-  const [notifyStart, setNotifyStart] = useAtom(notifyStartAtom);
-
-  useEffect(() => {
-    if (notifyStart) {
-      setNotifyStart(false);
-      alert("sending notification");
-
-      Notification.requestPermission().then((result) => {
-        alert(JSON.stringify(result));
-        if (result === "granted") {
-          alert("notification sent");
-          const notifTitle = "Pixel.ai";
-          const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
-          const notifImg = `/logo.png`;
-          const options = {
-            body: notifBody,
-            icon: notifImg,
-          };
-          new Notification(notifTitle, options);
-        }
-      });
-    }
-  }, [notifyStart]);
 
   useEffect(() => {
     if (status.data == "DONE" && !imageUrls.data) {

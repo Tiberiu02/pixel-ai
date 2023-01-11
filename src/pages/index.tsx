@@ -25,15 +25,14 @@ async function shareJpg(url: string) {
 
   const blob = await response.blob();
 
-  const file = new File([blob], "picture.jpg", { type: "image/jpeg" });
+  const file = new File([blob], "picture.jpg", { type: blob.type });
   const filesArray = [file];
 
   if (navigator.canShare && navigator.canShare({ files: filesArray })) {
     navigator.share({
-      text: "Check out this image I generated entirely using the AI from Pixel.ai! ✨🤖",
+      text: "Check out this image I generated entirely using the AI from Pixel.ai!",
       files: filesArray,
       title: "Pixel.ai",
-      url: "https://app.pixelaibeta.com",
     });
   } else {
     alert("Your browser doesn't support sharing files :(");

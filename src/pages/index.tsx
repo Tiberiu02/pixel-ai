@@ -9,21 +9,32 @@ import { DemandLogin } from "../components/DemandLogin";
 import { Loading } from "../components/Loading";
 import { useEffect, useState } from "react";
 import { FiDownload, FiShare2 } from "react-icons/fi";
+import { DataURIToBlob } from "../non-components/dataUri";
 
-function downloadJpg(url: string) {
+function downloadJpg(dataUri: string) {
   const a = document.createElement("a");
-  a.href = url;
+  a.href = dataUri;
   a.download = "PixelAI.jpg";
   a.click();
-  window.URL.revokeObjectURL(url);
 }
 
-async function shareJpg(url: string) {
-  const response = await fetch(url, {
-    mode: "no-cors",
-  });
-
+async function urlContentToDataUri(url: string) {
+  const response = await fetch(url);
   const blob = await response.blob();
+
+  // console.log(blob.size);
+  return new Promise<string>((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // console.log(reader);
+      resolve(reader.result as string);
+    };
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function shareJpg(dataUri: string) {
+  const blob = DataURIToBlob(dataUri);
 
   const file = new File([blob], "picture.jpg", { type: "image/jpeg" });
   const filesArray = [file];
@@ -46,18 +57,30 @@ export default function DashboardScreen() {
   const status = trpc.tasks.status.useQuery(undefined, {
     refetchInterval: 10000,
   });
-  const generatedImages = trpc.images.getGeneratedImages.useQuery(undefined, {
+  const imageUrls = trpc.images.getGeneratedImages.useQuery(undefined, {
     refetchInterval: 1000 * 60 * 5,
   });
+  const [images, setImages] = useState<string[]>([]);
 
-  console.log(generatedImages.data);
+  // console.log(imageUrls.data);
 
   useEffect(() => {
-    if (status.data == "DONE" && !generatedImages.data) {
-      generatedImages.refetch();
+    if (status.data == "DONE" && !imageUrls.data) {
+      imageUrls.refetch();
       console.log("refetching");
     }
   }, [status.data]);
+
+  useEffect(() => {
+    if (imageUrls.data && !images.length) {
+      imageUrls.data.forEach((url) => {
+        urlContentToDataUri(url).then((dataUri) => {
+          console.log(url, dataUri);
+          setImages((images) => [...images, dataUri]);
+        });
+      });
+    }
+  }, [imageUrls.data]);
 
   if (!session) return <DemandLogin />;
 
@@ -98,29 +121,24 @@ export default function DashboardScreen() {
           <div></div>
         </>
       ) : (
-        generatedImages.data && (
-          <>
-            <div className="flex h-full flex-col items-center gap-16 p-4 text-2xl font-semibold">
-              Your photos are ready!
-              <div className="grid grid-cols-3 gap-4">
-                {generatedImages.data.map((url) => (
-                  <button key={url} onClick={() => setMaximizedPicture(url)}>
-                    <img src={url} className="rounded-md"></img>
-                  </button>
-                ))}
-              </div>
+        <>
+          <div className="flex h-full flex-col items-center gap-16 p-4 text-2xl font-semibold">
+            <div className="animate-pulse">Your photos are ready!</div>
+            <div className="grid grid-cols-3 gap-4">
+              {images.map((dataUri, i) => (
+                <button key={i} onClick={() => setMaximizedPicture(dataUri)}>
+                  <img src={dataUri} className="rounded-md"></img>
+                </button>
+              ))}
             </div>
-            {/* <Button onClick={() => generatedImages.data.forEach(downloadJpg)}>
-              Download all
-            </Button> */}
-            <div></div>
-          </>
-        )
+          </div>
+          <div></div>
+        </>
       )}
       {maximizedPicture && (
         <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center p-8">
           <div
-            className="absolute inset-0 bg-black opacity-80"
+            className="absolute inset-0 bg-black opacity-90"
             onClick={() => setMaximizedPicture("")}
           ></div>
           <div className="relative flex flex-col overflow-hidden rounded-md">

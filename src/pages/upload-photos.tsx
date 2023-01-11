@@ -19,6 +19,7 @@ import {
 import { BeatLoader, RingLoader } from "react-spinners";
 import { TopBar } from "../components/TopBar";
 import { twMerge } from "tailwind-merge";
+import { DataURIToBlob } from "../non-components/dataUri";
 
 export default function UserPhotos() {
   const [photos, setPhotos] = useAtom(userPhotosAtom);
@@ -310,22 +311,6 @@ export function UploadPhotos({
       </div>
     </div>
   );
-}
-
-function DataURIToBlob(dataURI: string) {
-  const splitDataURI = dataURI.split(",");
-  const byteString =
-    splitDataURI[0]!.indexOf("base64") >= 0
-      ? atob(splitDataURI[1]!)
-      : decodeURI(splitDataURI[1]!);
-  const mimeString = splitDataURI[0]!.split(":")[1]!.split(";")[0];
-
-  const ia = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
-
-  console.log(ia.length, new Blob([ia], { type: mimeString }));
-
-  return new Blob([ia], { type: mimeString });
 }
 
 const uploadJpeg = async (name: string, data64: string, tries = 5) => {

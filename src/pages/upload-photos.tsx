@@ -160,17 +160,17 @@ function SelectPhotos({
 
               const result = await Notification.requestPermission();
               alert(JSON.stringify(result));
-              if (result === "granted") {
-                alert("notification sent");
-                const notifTitle = "Pixel.ai";
-                const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
-                const notifImg = `/logo.png`;
-                const options = {
-                  body: notifBody,
-                  icon: notifImg,
-                };
-                new Notification(notifTitle, options);
-              }
+              // if (result === "granted") {
+              const notifTitle = "Pixel.ai";
+              const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
+              const notifImg = `/logo.png`;
+              const options = {
+                body: notifBody,
+                icon: notifImg,
+              };
+              new Notification(notifTitle, options);
+              alert("notification sent");
+              // }
 
               setUploading(true);
             }}

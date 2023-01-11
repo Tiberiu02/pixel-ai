@@ -25,7 +25,7 @@ async function shareJpg(url: string) {
 
   const blob = await response.blob();
 
-  const file = new File([blob], "picture.jpg", { type: blob.type });
+  const file = new File([blob], "picture.jpg", { type: "image/jpeg" });
   const filesArray = [file];
 
   if (navigator.canShare && navigator.canShare({ files: filesArray })) {

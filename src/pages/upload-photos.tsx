@@ -156,21 +156,21 @@ function SelectPhotos({
         {photos.length >= MIN_PHOTOS && !loadingPhotos && (
           <Button
             onClick={async () => {
-              alert("sending notification");
+              // alert("sending notification");
 
               const result = await Notification.requestPermission();
-              alert(JSON.stringify(result));
-              // if (result === "granted") {
-              const notifTitle = "Pixel.ai";
-              const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
-              const notifImg = `/logo.png`;
-              const options = {
-                body: notifBody,
-                icon: notifImg,
-              };
-              new Notification(notifTitle, options);
-              alert("notification sent");
-              // }
+              // alert(JSON.stringify(result));
+              if (result === "granted") {
+                const notifTitle = "Pixel.ai";
+                const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
+                const notifImg = `/logo.png`;
+                const options = {
+                  body: notifBody,
+                  icon: notifImg,
+                };
+                new Notification(notifTitle, options);
+                alert("notification sent");
+              }
 
               setUploading(true);
             }}

@@ -26,6 +26,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <link rel="manifest" href="/app.webmanifest" />
         <link rel="apple-touch-icon" href="/logo.png"></link>
         <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <meta
           name="theme-color"
           content="#000"
           media="(prefers-color-scheme: dark)"

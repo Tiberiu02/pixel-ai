@@ -103,7 +103,7 @@ export default function DashboardScreen() {
             </div>
           </div>
           <div className="p-4 text-center text-sm text-zinc-400">
-            You will be notified when your photos are ready
+            Please come back later
           </div>
         </>
       ) : status.data == "NONE" ? (

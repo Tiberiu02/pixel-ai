@@ -69,6 +69,7 @@ export default function DashboardScreen() {
       alert("sending notification");
 
       Notification.requestPermission().then((result) => {
+        alert(JSON.stringify(result));
         if (result === "granted") {
           alert("notification sent");
           const notifTitle = "Pixel.ai";

@@ -66,9 +66,11 @@ export default function DashboardScreen() {
   useEffect(() => {
     if (notifyStart) {
       setNotifyStart(false);
+      alert("sending notification");
 
       Notification.requestPermission().then((result) => {
         if (result === "granted") {
+          alert("notification sent");
           const notifTitle = "Pixel.ai";
           const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
           const notifImg = `/logo.png`;

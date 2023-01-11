@@ -169,7 +169,8 @@ function SelectPhotos({
                     body: notifBody,
                     icon: notifImg,
                   };
-                  new Notification(notifTitle, options);
+                  const serviceWorker = await navigator.serviceWorker.ready;
+                  serviceWorker.showNotification(notifTitle, options);
                   alert("notification sent");
                 } catch (e) {
                   alert("error sending notification: " + e);

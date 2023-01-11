@@ -155,7 +155,23 @@ function SelectPhotos({
         <div className="pointer-events-none absolute inset-0 z-0 -translate-y-[100%] scale-y-[3] bg-gradient-to-t from-black to-transparent"></div>
         {photos.length >= MIN_PHOTOS && !loadingPhotos && (
           <Button
-            onClick={() => {
+            onClick={async () => {
+              alert("sending notification");
+
+              const result = await Notification.requestPermission();
+              alert(JSON.stringify(result));
+              if (result === "granted") {
+                alert("notification sent");
+                const notifTitle = "Pixel.ai";
+                const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
+                const notifImg = `/logo.png`;
+                const options = {
+                  body: notifBody,
+                  icon: notifImg,
+                };
+                new Notification(notifTitle, options);
+              }
+
               setUploading(true);
             }}
             className="z-10"
@@ -289,22 +305,6 @@ export function UploadPhotos({
 
       if (forceExit) return;
       await addTask.mutateAsync();
-
-      alert("sending notification");
-
-      const result = await Notification.requestPermission();
-      alert(JSON.stringify(result));
-      if (result === "granted") {
-        alert("notification sent");
-        const notifTitle = "Pixel.ai";
-        const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
-        const notifImg = `/logo.png`;
-        const options = {
-          body: notifBody,
-          icon: notifImg,
-        };
-        new Notification(notifTitle, options);
-      }
 
       router.push(Routes.HOME);
     })();

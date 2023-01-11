@@ -20,6 +20,7 @@ import { TopBar } from "../components/TopBar";
 import { twMerge } from "tailwind-merge";
 import { DataURIToBlob } from "../non-components/dataUri";
 import { notifyStartAtom } from "../non-components/storage";
+import { sendNotification } from "../non-components/sendNotification";
 
 export default function UserPhotos() {
   const [photos, setPhotos] = useAtom(userPhotosAtom);
@@ -154,28 +155,7 @@ function SelectPhotos({
       <div className="absolute bottom-0 flex w-full flex-col items-end p-4">
         <div className="pointer-events-none absolute inset-0 z-0 -translate-y-[100%] scale-y-[3] bg-gradient-to-t from-black to-transparent"></div>
         {photos.length >= MIN_PHOTOS && !loadingPhotos && (
-          <Button
-            onClick={async () => {
-              const result = await Notification.requestPermission();
-              if (result === "granted") {
-                try {
-                  const serviceWorker = await navigator.serviceWorker.ready;
-                  serviceWorker.showNotification("Pixel.ai", {
-                    body: `Your new pictures are currently being generated. Stay tuned!`,
-                    icon: `/logo.png`,
-                    badge: `/badge.png`,
-                  });
-                  alert("notification sent");
-                } catch (e) {
-                  alert("error sending notification: " + e);
-                }
-              }
-
-              setUploading(true);
-            }}
-            className="z-10"
-            special
-          >
+          <Button onClick={() => setUploading(true)} className="z-10" special>
             Start <BiRightArrowAlt />
           </Button>
         )}
@@ -304,6 +284,10 @@ export function UploadPhotos({
 
       if (forceExit) return;
       await addTask.mutateAsync();
+
+      await sendNotification(
+        `Your new pictures are currently being generated. Stay tuned!`
+      );
 
       router.push(Routes.HOME);
     })();

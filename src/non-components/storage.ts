@@ -17,4 +17,4 @@ function createLocalStorageAtom<T>(key: string) {
   );
 }
 
-export const notifyStartAtom = atom(false);
+export const notifyStartAtom = createLocalStorageAtom<boolean>("notifyStart");

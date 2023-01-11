@@ -1,17 +1,12 @@
-import { useAtom } from "jotai";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { BiLogOut, BiTrash } from "react-icons/bi";
-import { MdOutlineFemale, MdOutlineMale } from "react-icons/md";
 import { DemandLogin } from "../components/DemandLogin";
 import { TopBar } from "../components/TopBar";
-import { ageAtom, Gender, genderAtom } from "../non-components/userOptions";
 import { trpc } from "../utils/trpc";
 
 export default function Settings() {
   const session = useSession();
-  const [gender, setGender] = useAtom(genderAtom);
-  const [age, setAge] = useAtom(ageAtom);
   const [showDelete, setShowDelete] = useState(false);
 
   const deleteAccount = trpc.account.delete.useMutation();

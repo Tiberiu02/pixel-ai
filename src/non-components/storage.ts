@@ -17,11 +17,4 @@ function createLocalStorageAtom<T>(key: string) {
   );
 }
 
-export enum Gender {
-  MAN = "MAN",
-  WOMAN = "WOMAN",
-}
-
-export const genderAtom = createLocalStorageAtom<Gender>("user-gender");
-
-export const ageAtom = createLocalStorageAtom<number>("user-age");
+export const notifyStartAtom = atom(false);

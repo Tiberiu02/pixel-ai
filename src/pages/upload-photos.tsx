@@ -3,13 +3,12 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Cropper from "react-easy-crop";
-import { BiCrop, BiImageAdd, BiRightArrowAlt, BiX } from "react-icons/bi";
+import { BiImageAdd, BiRightArrowAlt, BiX } from "react-icons/bi";
 import { trpc } from "../utils/trpc";
 import { Button } from "../components/Button";
 import { DemandLogin } from "../components/DemandLogin";
 import getCroppedImg from "../non-components/getCroppedImage";
 import { Routes } from "../non-components/routes";
-import { ageAtom, Gender, genderAtom } from "../non-components/userOptions";
 import {
   ImgData,
   imgFromBlob,
@@ -20,6 +19,7 @@ import { BeatLoader, RingLoader } from "react-spinners";
 import { TopBar } from "../components/TopBar";
 import { twMerge } from "tailwind-merge";
 import { DataURIToBlob } from "../non-components/dataUri";
+import { notifyStartAtom } from "../non-components/storage";
 
 export default function UserPhotos() {
   const [photos, setPhotos] = useAtom(userPhotosAtom);
@@ -154,7 +154,13 @@ function SelectPhotos({
       <div className="absolute bottom-0 flex w-full flex-col items-end p-4">
         <div className="pointer-events-none absolute inset-0 z-0 -translate-y-[100%] scale-y-[3] bg-gradient-to-t from-black to-transparent"></div>
         {photos.length >= MIN_PHOTOS && !loadingPhotos && (
-          <Button onClick={() => setUploading(true)} className="z-10" special>
+          <Button
+            onClick={() => {
+              setUploading(true);
+            }}
+            className="z-10"
+            special
+          >
             Start <BiRightArrowAlt />
           </Button>
         )}
@@ -253,8 +259,7 @@ export function UploadPhotos({
   const router = useRouter();
 
   const [progress, setProgress] = useState(0);
-  const [gender] = useAtom(genderAtom);
-  const [age] = useAtom(ageAtom);
+  const [notifyStart, setNotifyStart] = useAtom(notifyStartAtom);
 
   const clearUploads = trpc.images.clearUploads.useMutation();
   const addImage = trpc.images.upload.useMutation();
@@ -286,6 +291,7 @@ export function UploadPhotos({
       if (forceExit) return;
       await addTask.mutateAsync();
 
+      setNotifyStart(true);
       router.push(Routes.HOME);
     })();
 

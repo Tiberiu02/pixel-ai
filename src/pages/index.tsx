@@ -10,6 +10,8 @@ import { Loading } from "../components/Loading";
 import { useEffect, useState } from "react";
 import { FiDownload, FiShare2 } from "react-icons/fi";
 import { DataURIToBlob } from "../non-components/dataUri";
+import { useAtom } from "jotai";
+import { notifyStartAtom } from "../non-components/storage";
 
 function downloadJpg(dataUri: string) {
   const a = document.createElement("a");
@@ -59,6 +61,26 @@ export default function DashboardScreen() {
     refetchInterval: 1000 * 60 * 5,
   });
   const [images, setImages] = useState<string[]>([]);
+  const [notifyStart, setNotifyStart] = useAtom(notifyStartAtom);
+
+  useEffect(() => {
+    if (notifyStart) {
+      setNotifyStart(false);
+
+      Notification.requestPermission().then((result) => {
+        if (result === "granted") {
+          const notifTitle = "Pixel.ai";
+          const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
+          const notifImg = `/logo.png`;
+          const options = {
+            body: notifBody,
+            icon: notifImg,
+          };
+          new Notification(notifTitle, options);
+        }
+      });
+    }
+  }, [notifyStart]);
 
   useEffect(() => {
     if (status.data == "DONE" && !imageUrls.data) {

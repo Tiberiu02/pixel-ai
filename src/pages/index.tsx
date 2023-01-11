@@ -22,11 +22,9 @@ async function urlContentToDataUri(url: string) {
   const response = await fetch(url);
   const blob = await response.blob();
 
-  // console.log(blob.size);
   return new Promise<string>((resolve) => {
     const reader = new FileReader();
     reader.onloadend = () => {
-      // console.log(reader);
       resolve(reader.result as string);
     };
     reader.readAsDataURL(blob);
@@ -62,12 +60,9 @@ export default function DashboardScreen() {
   });
   const [images, setImages] = useState<string[]>([]);
 
-  // console.log(imageUrls.data);
-
   useEffect(() => {
     if (status.data == "DONE" && !imageUrls.data) {
       imageUrls.refetch();
-      console.log("refetching");
     }
   }, [status.data]);
 
@@ -75,7 +70,6 @@ export default function DashboardScreen() {
     if (imageUrls.data && !images.length) {
       imageUrls.data.forEach((url) => {
         urlContentToDataUri(url).then((dataUri) => {
-          console.log(url, dataUri);
           setImages((images) => [...images, dataUri]);
         });
       });

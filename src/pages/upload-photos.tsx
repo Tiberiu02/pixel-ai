@@ -161,15 +161,19 @@ function SelectPhotos({
               const result = await Notification.requestPermission();
               // alert(JSON.stringify(result));
               if (result === "granted") {
-                const notifTitle = "Pixel.ai";
-                const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
-                const notifImg = `/logo.png`;
-                const options = {
-                  body: notifBody,
-                  icon: notifImg,
-                };
-                new Notification(notifTitle, options);
-                alert("notification sent");
+                try {
+                  const notifTitle = "Pixel.ai";
+                  const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
+                  const notifImg = `/logo.png`;
+                  const options = {
+                    body: notifBody,
+                    icon: notifImg,
+                  };
+                  new Notification(notifTitle, options);
+                  alert("notification sent");
+                } catch (e) {
+                  alert("error sending notification: " + e);
+                }
               }
 
               setUploading(true);

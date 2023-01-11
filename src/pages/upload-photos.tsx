@@ -156,21 +156,15 @@ function SelectPhotos({
         {photos.length >= MIN_PHOTOS && !loadingPhotos && (
           <Button
             onClick={async () => {
-              // alert("sending notification");
-
               const result = await Notification.requestPermission();
-              // alert(JSON.stringify(result));
               if (result === "granted") {
                 try {
-                  const notifTitle = "Pixel.ai";
-                  const notifBody = `Your new pictures are currently being generated. Stay tuned!`;
-                  const notifImg = `/logo.png`;
-                  const options = {
-                    body: notifBody,
-                    icon: notifImg,
-                  };
                   const serviceWorker = await navigator.serviceWorker.ready;
-                  serviceWorker.showNotification(notifTitle, options);
+                  serviceWorker.showNotification("Pixel.ai", {
+                    body: `Your new pictures are currently being generated. Stay tuned!`,
+                    icon: `/logo.png`,
+                    badge: `/badge.png`,
+                  });
                   alert("notification sent");
                 } catch (e) {
                   alert("error sending notification: " + e);

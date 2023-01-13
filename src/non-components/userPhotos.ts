@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-export const MIN_PHOTOS = 5;
+export const MIN_PHOTOS = 15;
 export const MAX_PHOTOS = 50;
 
 export class ImgData {

@@ -15,6 +15,5 @@ export async function sendNotification(body: string) {
       const serviceWorker = await navigator.serviceWorker.ready;
       serviceWorker.showNotification(title, options);
     }
-    alert("notification sent");
   }
 }

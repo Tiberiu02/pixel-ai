@@ -6,7 +6,7 @@ import { Routes } from "../non-components/routes";
 import { TopBar } from "../components/TopBar";
 
 const dos = [
-  "Upload at least 15 photos of you",
+  "Upload at least 20 photos of you",
   "Diferent poses, angles, and environments",
   "Have both full body & close-up photos",
   "Clearly visible face",

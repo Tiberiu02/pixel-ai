@@ -94,3 +94,8 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Instances {
+  id         String  @unique
+  production Boolean
+}

@@ -36,8 +36,23 @@
   "description": "Use the power of AI to generate professional photos of you",
   "screenshots": [
     {
-      "src": "/screenshot-1.png",
-      "sizes": "1440x2960",
+      "src": "/screenshots/0.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "/screenshots/1.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "/screenshots/2.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "/screenshots/3.png",
+      "sizes": "1080x1920",
       "type": "image/png"
     }
   ],

@@ -41,7 +41,7 @@ async function shareJpg(dataUri: string) {
 
   if (navigator.canShare && navigator.canShare({ files: filesArray })) {
     navigator.share({
-      text: "Check out this image I generated entirely using the AI from Pixel.ai!",
+      text: "Check out this image I generated using Pixel AI! 🤖✨\nTry it yourself: bit.ly/3XdaoWE",
       files: filesArray,
       title: "Pixel.ai",
     });

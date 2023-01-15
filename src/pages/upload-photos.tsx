@@ -21,6 +21,7 @@ import { twMerge } from "tailwind-merge";
 import { DataURIToBlob } from "../non-components/dataUri";
 import { notifyStartAtom } from "../non-components/storage";
 import { sendNotification } from "../non-components/sendNotification";
+import { FiInfo } from "react-icons/fi";
 
 export default function UserPhotos() {
   const [photos, setPhotos] = useAtom(userPhotosAtom);
@@ -83,6 +84,13 @@ function SelectPhotos({
         <TopBar />
         <div className="flex h-full w-full flex-col gap-16 overflow-hidden p-4">
           <div className="flex w-full flex-col items-center gap-4">
+            <div className="flex items-center gap-4 rounded-lg bg-gray-800 p-4">
+              <FiInfo className="shrink-0 text-2xl" />
+              <div className="">
+                Photos must be saved on this device. Download any photos from
+                cloud providers or social media apps before proceeding.
+              </div>
+            </div>
             <label htmlFor="image-upload">
               <Button className="relative">
                 {loadingPhotos > 0 && (

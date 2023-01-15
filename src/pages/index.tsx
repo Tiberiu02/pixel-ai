@@ -16,7 +16,8 @@ import { notifyStartAtom } from "../non-components/storage";
 function downloadJpg(dataUri: string) {
   const a = document.createElement("a");
   a.href = dataUri;
-  a.download = "PixelAI.jpg";
+  const randStr = Math.random().toString(36).substring(7);
+  a.download = `PixelAI-${randStr}.jpg`;
   a.click();
 }
 

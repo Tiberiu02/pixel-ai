@@ -25,17 +25,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <link rel="icon" href="/logo.png" />
         <link rel="manifest" href="/app.webmanifest" />
         <link rel="apple-touch-icon" href="/logo.png"></link>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           name="theme-color"
           content="#000"
           media="(prefers-color-scheme: dark)"
         />
       </Head>
-      <main className="relative h-screen w-screen select-none overflow-auto bg-gradient-to-b from-zinc-900 to-black text-white">
+      <main className="relative h-screen w-screen select-none overflow-x-hidden bg-gradient-to-b from-zinc-900 to-black text-white">
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>

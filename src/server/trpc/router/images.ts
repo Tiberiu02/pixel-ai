@@ -44,7 +44,21 @@ export const imagesRouter = router({
         ResponseContentDisposition: `attachment; filename="Pixel-AI.jpg"`,
       };
       const url = s3.getSignedUrl("getObject", params);
-      return url;
+      return { url, bookmarked: image.bookmarked, id: image.id };
     });
   }),
+
+  bookmark: protectedProcedure
+    .input(z.object({ id: z.string(), bookmarked: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.generatedImage.updateMany({
+        where: {
+          id: input.id,
+          userId: ctx.session.user.id,
+        },
+        data: {
+          bookmarked: input.bookmarked,
+        },
+      });
+    }),
 });

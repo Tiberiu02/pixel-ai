@@ -44,7 +44,7 @@ export default function Login() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-between gap-4 p-4">
       <div></div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-2">
         <div className="flex items-center justify-center gap-4">
           <Image
             className="mt-1 h-8 w-8 opacity-90"
@@ -54,7 +54,7 @@ export default function Login() {
             alt="logo"
           />
           <h1 className="text-4xl font-extrabold tracking-tight">
-            Pixel<span className="text-[hsl(0,0%,50%)]">.</span>ai
+            PIXEL <span className="font-light">AI</span>
           </h1>
         </div>
         <div className="flex flex-col items-center gap-2">

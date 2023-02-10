@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getProviders, signIn, useSession } from "next-auth/react";
 
 import { FaDiscord, FaFacebook, FaGoogle } from "react-icons/fa";
+import { IoIosCamera } from "react-icons/io";
 import { Button } from "../components/Button";
 import { Routes } from "../non-components/routes";
 import { useRouter } from "next/router";
@@ -42,42 +43,34 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-between gap-4 p-4">
-      <div></div>
-      <div className="flex flex-col items-center justify-center gap-2">
-        <div className="flex items-center justify-center gap-4">
-          <Image
-            className="mt-1 h-8 w-8 opacity-90"
-            src="/logo.png"
-            width={256}
-            height={256}
-            alt="logo"
-          />
-          <h1 className="text-4xl font-extrabold tracking-tight">
-            PIXEL <span className="font-light">AI</span>
-          </h1>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <h1 className="text-xl font-light tracking-tight">
-            Let&lsquo;s get you some great new photos!
-          </h1>
-          <div className="my-4 h-0 w-32 rounded-full bg-white opacity-30"></div>
-          <div className="mt-0 flex flex-col gap-4">
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <div key={provider.name} className="w-full">
-                  <Button
-                    onClick={() => signIn(provider.id)}
-                    className="flex items-center gap-4"
-                  >
-                    {AuthIcons[provider.id]} Sign in with {provider.name}
-                  </Button>
-                </div>
-              ))}
-          </div>
+    <div className="bg-polka-dots flex min-h-screen w-full flex-col items-center justify-center gap-4 p-4">
+      <div className="flex items-center justify-center gap-4">
+        <IoIosCamera className="text-5xl opacity-50" />
+        <h1 className="text-4xl font-extrabold tracking-tight">
+          PIXEL <span className="font-light">AI</span>
+        </h1>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <h1 className="text-center text-xl font-light tracking-tight">
+          Let&rsquo;s get you some great new&nbsp;photos!
+        </h1>
+        <div className="my-4 h-0 w-32 rounded-full bg-white opacity-30"></div>
+        <div className="mt-0 flex flex-col gap-4">
+          {providers &&
+            Object.values(providers).map((provider) => (
+              <div key={provider.name} className="w-full">
+                <Button
+                  onClick={() => signIn(provider.id)}
+                  className="flex items-center gap-4"
+                  special
+                >
+                  {AuthIcons[provider.id]} Sign in with {provider.name}
+                </Button>
+              </div>
+            ))}
         </div>
       </div>
-      <div className="text-center text-sm text-zinc-400">
+      <div className="mt-8 text-center text-sm text-zinc-400">
         By signing up, you agree to our <br />
         <Link href="/tos.html" className="underline">
           Terms of Service

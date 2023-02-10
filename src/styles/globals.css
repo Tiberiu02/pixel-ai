@@ -20,3 +20,21 @@ input[type=number] {
 body {
   overscroll-behavior: none;
 }
+
+@media (prefers-color-scheme: light) {
+  .bg-polka-dots {
+    background-image: radial-gradient(rgba(53, 0, 110, 0.06) 10%, transparent 10.1%);
+    background-size: 30px 30px;
+    background-position: 0 0, 30px 30px;
+    background-repeat: repeat;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-polka-dots {
+    background-image: radial-gradient(rgba(196, 164, 255, 0.099) 10%, transparent 10.1%);
+    background-size: 30px 30px;
+    background-position: 0 0, 30px 30px;
+    background-repeat: repeat;
+  }
+}

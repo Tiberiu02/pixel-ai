@@ -21,7 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <Head>
-        <title>Pixel.ai</title>
+        <title>Pixel AI</title>
         <link rel="icon" href="/logo.png" />
         <link rel="manifest" href="/app.webmanifest" />
         <link rel="apple-touch-icon" href="/logo.png"></link>
@@ -31,8 +31,18 @@ const MyApp: AppType<{ session: Session | null }> = ({
           content="#000"
           media="(prefers-color-scheme: dark)"
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Coiny&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
       </Head>
-      <main className="relative h-screen w-screen select-none overflow-x-hidden bg-gradient-to-b from-zinc-900 to-black text-white">
+      <main className="bg-polka-dots relative min-h-screen w-screen select-none overflow-x-hidden bg-[#fff] font-inter dark:bg-gray-900 dark:text-white">
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>

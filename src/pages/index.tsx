@@ -118,10 +118,10 @@ export default function DashboardScreen() {
     <div className="flex min-h-screen w-full flex-col items-center justify-between gap-0">
       <div className="flex w-full items-center justify-between p-4">
         <button onClick={() => signOut()}>
-          <BiLogOut className="h-6 w-6 text-white" />
+          <BiLogOut className="h-6 w-6" />
         </button>
         <button onClick={() => router.push(Routes.SETTINGS)}>
-          <BiCog className="h-6 w-6 text-white" />
+          <BiCog className="h-6 w-6" />
         </button>
       </div>
       {status.data == "WAITING" ? (
@@ -134,7 +134,8 @@ export default function DashboardScreen() {
               photos
             </div>
           </div>
-          <div className="p-4 text-center text-sm text-zinc-400">
+          <div></div>
+          <div className="fixed bottom-0 p-4 text-center text-sm opacity-60">
             Please check again in a few hours
           </div>
         </>
@@ -154,32 +155,36 @@ export default function DashboardScreen() {
             <div className="animate-pulse self-center py-8 text-2xl">
               Your photos are ready!
             </div>
-            {Array.from(images.entries())
-              .filter(([imgId, image]) => !showBest || image.bookmarked)
-              .map(([imgId, image]) => (
-                <div className="relative" key={imgId}>
-                  <img src={image.dataUri} className="w-full"></img>
-                  <div className="absolute bottom-0 right-0 flex items-center">
-                    <div className="absolute inset-0 translate-x-1/2 translate-y-1/2 scale-[2] rounded-tl-xl bg-black opacity-30 blur-md"></div>
-                    <button onClick={() => downloadJpg(image.dataUri)}>
-                      <FiDownload className="relative p-2 text-5xl drop-shadow-lg" />
-                    </button>
-                    <button onClick={() => shareJpg(image.dataUri)}>
-                      <FiShare2 className="relative p-2 text-[2.8rem] drop-shadow-lg" />
-                    </button>
-                    <button onClick={() => bookmark(imgId, !image.bookmarked)}>
-                      {image.bookmarked ? (
-                        <AiFillStar className="relative p-2 text-5xl drop-shadow-lg" />
-                      ) : (
-                        <AiOutlineStar className="relative p-2 text-5xl drop-shadow-lg" />
-                      )}
-                    </button>
-                  </div>
+            {Array.from(images.entries()).map(([imgId, image]) => (
+              <div
+                className={twMerge(
+                  "relative overflow-hidden",
+                  showBest && !image.bookmarked && "hidden"
+                )}
+                key={imgId}
+              >
+                <img src={image.dataUri} className="w-full"></img>
+                <div className="absolute bottom-0 right-0 flex items-center text-white">
+                  <div className="absolute inset-0 translate-x-1/2 translate-y-1/2 scale-[2] rounded-tl-xl bg-black opacity-30 blur-md"></div>
+                  <button onClick={() => downloadJpg(image.dataUri)}>
+                    <FiDownload className="relative p-2 text-5xl drop-shadow-lg" />
+                  </button>
+                  <button onClick={() => shareJpg(image.dataUri)}>
+                    <FiShare2 className="relative p-2 text-[2.8rem] drop-shadow-lg" />
+                  </button>
+                  <button onClick={() => bookmark(imgId, !image.bookmarked)}>
+                    {image.bookmarked ? (
+                      <AiFillStar className="relative p-2 text-5xl drop-shadow-lg" />
+                    ) : (
+                      <AiOutlineStar className="relative p-2 text-5xl drop-shadow-lg" />
+                    )}
+                  </button>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
           <div></div>
-          <div className="fixed bottom-0 flex w-full justify-around p-2 font-bold drop-shadow-md">
+          <div className="fixed bottom-0 flex w-full max-w-md justify-around p-2 font-bold drop-shadow-md">
             <button
               onClick={() => {
                 if (showBest) {
@@ -188,8 +193,9 @@ export default function DashboardScreen() {
                 }
               }}
               className={twMerge(
-                "flex items-center gap-2 rounded-full bg-white px-6 py-2",
-                !showBest ? "bg-zinc-900" : "bg-black text-zinc-500"
+                "flex items-center gap-2 rounded-full bg-zinc-200 px-6 py-2 text-gray-400 shadow-md dark:bg-gray-800",
+                !showBest &&
+                  "bg-white text-black  dark:bg-gray-600 dark:text-white"
               )}
             >
               <MdOutlineInsertPhoto className="text-xl" />
@@ -203,8 +209,9 @@ export default function DashboardScreen() {
                 }
               }}
               className={twMerge(
-                "flex items-center gap-2 rounded-full bg-white px-6 py-2",
-                showBest ? "bg-zinc-900" : "bg-black text-zinc-500"
+                "flex items-center gap-2 rounded-full bg-zinc-200 px-6 py-2 text-gray-400 shadow-md dark:bg-gray-800",
+                showBest &&
+                  "bg-white text-black  dark:bg-gray-600 dark:text-white"
               )}
             >
               <AiFillStar className="text-xl" />
@@ -213,33 +220,6 @@ export default function DashboardScreen() {
           </div>
         </>
       )}
-      {
-        // maximizedPicture && (
-        //   <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center p-8">
-        //     <div
-        //       className="absolute inset-0 bg-black opacity-90"
-        //       onClick={() => setMaximizedPicture("")}
-        //     ></div>
-        //     <div className="relative flex flex-col overflow-hidden rounded-md">
-        //       <img src={maximizedPicture} className="" />
-        //       <div className="grid grid-cols-2">
-        //         <button
-        //           className="flex items-center justify-center gap-2 bg-red-800 p-4"
-        //           onClick={() => downloadJpg(maximizedPicture)}
-        //         >
-        //           <FiDownload className="text-xl" /> Download
-        //         </button>
-        //         <button
-        //           className="flex items-center justify-center gap-2 bg-red-600 p-4"
-        //           onClick={() => shareJpg(maximizedPicture)}
-        //         >
-        //           <FiShare2 className="text-xl" /> Share
-        //         </button>
-        //       </div>
-        //     </div>
-        //   </div>
-        // )
-      }
     </div>
   );
 }

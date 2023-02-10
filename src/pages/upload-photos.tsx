@@ -64,6 +64,11 @@ function SelectPhotos({
         imgFromBlob(f).then((img) => {
           setPhotos((photos) => {
             const imgData = new ImgData(img);
+
+            if (photos.some((image) => image.img == imgData.img)) {
+              return photos;
+            }
+
             return [
               ...photos,
               {
@@ -80,11 +85,11 @@ function SelectPhotos({
 
   return (
     <>
-      <div className="relative flex h-screen w-full flex-col items-center justify-between">
+      <div className="relative flex w-full flex-col items-center justify-between">
         <TopBar />
         <div className="flex h-full w-full flex-col gap-6 overflow-hidden p-4">
           <div className="flex w-full flex-col items-center gap-6">
-            <div className="flex items-center gap-4 rounded-lg bg-gray-800 p-4">
+            <div className="flex items-center gap-4 rounded-lg bg-gray-100 p-4 shadow dark:bg-gray-800">
               <FiInfo className="shrink-0 text-2xl" />
               <div className="">
                 Photos must be saved on this device. Download any photos from
@@ -95,8 +100,8 @@ function SelectPhotos({
               <Button className="relative">
                 {loadingPhotos > 0 && (
                   <BeatLoader
-                    color="#fff"
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    color="#000"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 dark:invert"
                   />
                 )}
                 <BiImageAdd
@@ -125,8 +130,15 @@ function SelectPhotos({
             onChange={fileHandler}
             className="hidden"
           />
+          {photos.length > 0 &&
+            photos.length < MIN_PHOTOS &&
+            !loadingPhotos && (
+              <div className="z-10 flex items-center gap-2 self-center rounded-full bg-red-500 px-4 py-2 font-semibold text-white no-underline shadow-lg transition">
+                Please add at least {MIN_PHOTOS} photos
+              </div>
+            )}
 
-          <div className="flex w-full flex-col items-center gap-16 overflow-auto">
+          <div className="flex w-full flex-col items-center gap-16">
             <div className="grid w-full grid-cols-3 gap-6 p-4">
               {photos.map((imageData, i) => (
                 <div
@@ -142,7 +154,7 @@ function SelectPhotos({
                   }}
                 >
                   <button
-                    className="absolute flex h-8 w-8 -translate-x-1/3 -translate-y-1/3 items-center justify-center  rounded-full bg-red-500 text-3xl shadow-md"
+                    className="absolute flex h-8 w-8 -translate-x-1/3 -translate-y-1/3 items-center justify-center  rounded-full bg-red-500 text-3xl text-white shadow-md"
                     onClick={() => {
                       setPhotos(
                         photos.filter((img) => img.id !== imageData.id)
@@ -160,17 +172,12 @@ function SelectPhotos({
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 flex w-full flex-col items-end p-4">
-        <div className="pointer-events-none absolute inset-0 z-0 -translate-y-[100%] scale-y-[3] bg-gradient-to-t from-black to-transparent"></div>
+      <div className="fixed bottom-0 right-0 flex w-full flex-col items-end p-4">
+        <div className="pointer-events-none absolute inset-0 z-0 -translate-y-[100%] scale-y-[3] bg-gradient-to-t from-white to-transparent dark:from-gray-900"></div>
         {photos.length >= MIN_PHOTOS && !loadingPhotos && (
           <Button onClick={() => setUploading(true)} className="z-10" special>
             Start <BiRightArrowAlt />
           </Button>
-        )}
-        {photos.length > 0 && photos.length < MIN_PHOTOS && !loadingPhotos && (
-          <div className="z-10 flex items-center gap-2 self-center rounded-full bg-red-500 px-4 py-2 font-semibold text-white no-underline shadow-lg transition">
-            Please add at least {MIN_PHOTOS} photos
-          </div>
         )}
       </div>
     </>
@@ -311,11 +318,16 @@ export function UploadPhotos({
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center">
       <div className="flex flex-col items-center gap-8">
-        <RingLoader color="#fff" />
+        <div className="dark:hidden">
+          <RingLoader color="#000" />
+        </div>
+        <div className="hidden dark:block">
+          <RingLoader color="#fff" />
+        </div>
         <div className="text-xl">Uploading photos</div>
         <div className="h-2 w-full max-w-sm overflow-hidden rounded-full bg-zinc-500">
           <div
-            className="h-full rounded-full bg-amber-400"
+            className="h-full rounded-full bg-purple-500"
             style={{ width: `${progress * 100}%` }}
           />
         </div>

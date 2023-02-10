@@ -26,11 +26,11 @@ export default function Tutorial() {
   const router = useRouter();
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-between">
-      <div className="flex h-full w-full flex-col gap-8">
+    <div className="flex w-full flex-col items-center justify-between">
+      <div className="flex w-full flex-col gap-8">
         <TopBar />
 
-        <div className="flex w-full flex-col gap-8 overflow-auto p-4">
+        <div className="flex w-full flex-col gap-8 p-4">
           <IoWarningOutline className="mx-auto shrink-0 text-8xl text-red-500" />
           <div className="text-center text-2xl">Read this very carefully</div>
           <div className="mx-auto flex max-w-lg flex-col gap-4">
@@ -55,11 +55,6 @@ export default function Tutorial() {
                 </div>
               ))}
             </div>
-            {/* <div>
-              Our AI works best with square images. After selecting your photos,
-              you will pe asked to crop them as squares. Include as much as
-              possible your own face and body. Crop out everything else.
-            </div> */}
           </div>
 
           <div className="self-end">

@@ -42,7 +42,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           rel="stylesheet"
         />
       </Head>
-      <main className="bg-polka-dots relative min-h-screen w-screen select-none overflow-x-hidden bg-[#fff] font-inter dark:bg-gray-900 dark:text-white">
+      <main className="bg-polka-dots relative min-h-screen w-full select-none overflow-x-hidden bg-[#fff] font-inter dark:bg-gray-900 dark:text-white">
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>

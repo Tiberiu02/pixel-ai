@@ -139,7 +139,7 @@ function SelectPhotos({
             )}
 
           <div className="flex w-full flex-col items-center gap-16">
-            <div className="grid w-full grid-cols-3 gap-6 p-4">
+            <div className="grid w-full grid-cols-3 gap-6 p-4 sm:grid-cols-4 lg:grid-cols-5">
               {photos.map((imageData, i) => (
                 <div
                   key={imageData.id}

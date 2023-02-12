@@ -1,13 +1,14 @@
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
-import { BiLogOut, BiTrash } from "react-icons/bi";
+import { BiArrowBack, BiHelpCircle, BiLogOut, BiTrash } from "react-icons/bi";
 import { DemandLogin } from "../components/DemandLogin";
-import { TopBar } from "../components/TopBar";
 import { trpc } from "../utils/trpc";
 
 export default function Settings() {
   const session = useSession();
   const [showDelete, setShowDelete] = useState(false);
+  const router = useRouter();
 
   const deleteAccount = trpc.account.delete.useMutation();
 
@@ -15,7 +16,14 @@ export default function Settings() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <TopBar />
+      <div className="flex w-full items-center justify-between p-4">
+        <button>
+          <BiArrowBack className="h-6 w-6" onClick={() => router.back()} />
+        </button>
+        <a href="/help">
+          <BiHelpCircle className="h-6 w-6" />
+        </a>
+      </div>
       <div className="flex flex-col gap-8 p-8 text-xl">
         <div className="flex w-full flex-col items-center rounded-lg  border-zinc-200  p-12 text-center dark:border-gray-700">
           <img

@@ -259,6 +259,16 @@ export function CropPhotos({
   );
 }
 
+function initPayment() {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "/api/checkout_sessions";
+
+  document.body.appendChild(form);
+
+  form.submit();
+}
+
 export function UploadPhotos({
   photos,
   setPhotos,
@@ -298,13 +308,12 @@ export function UploadPhotos({
       await Promise.all(photos.map((photo) => photo.uploadPromise));
 
       if (forceExit) return;
-      await addTask.mutateAsync();
 
       await sendNotification(
-        `Your new pictures are currently being generated. Stay tuned!`
+        `Your new pictures will be generated soon. Stay tuned!`
       );
 
-      router.push(Routes.HOME);
+      initPayment();
     })();
 
     return () => {
@@ -324,7 +333,7 @@ export function UploadPhotos({
         <div className="hidden dark:block">
           <RingLoader color="#fff" />
         </div>
-        <div className="text-xl">Uploading photos</div>
+        <div className="text-xl">Processing photos</div>
         <div className="h-2 w-full max-w-sm overflow-hidden rounded-full bg-zinc-500">
           <div
             className="h-full rounded-full bg-purple-500"

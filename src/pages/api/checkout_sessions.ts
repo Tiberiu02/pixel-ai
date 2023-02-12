@@ -2,8 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { env } from "../../env/server.mjs";
 
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
+import Stripe from "stripe";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = new (Stripe as any)(env.STRIPE_SECRET_KEY);
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,7 +36,7 @@ export default async function handler(
         cancel_url: `${req.headers.origin}/?canceled=true`,
         allow_promotion_codes: true,
       });
-      res.redirect(303, checkoutSession.url);
+      res.redirect(303, checkoutSession.url as string);
     } catch (err: any) {
       res.status(err.statusCode || 500).json(err.message);
     }

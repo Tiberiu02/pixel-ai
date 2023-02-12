@@ -77,7 +77,7 @@ export default function Tutorial() {
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="text-lg font-semibold">
-                What if I don't like my photos?
+                What if I don’t like the generated photos?
               </h3>
               <p>
                 If you are not satisfied with the generated photos, you can

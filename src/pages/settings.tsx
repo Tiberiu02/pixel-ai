@@ -1,4 +1,5 @@
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { BiArrowBack, BiHelpCircle, BiLogOut, BiTrash } from "react-icons/bi";
@@ -20,9 +21,11 @@ export default function Settings() {
         <button>
           <BiArrowBack className="h-6 w-6" onClick={() => router.back()} />
         </button>
-        <a href="/help">
-          <BiHelpCircle className="h-6 w-6" />
-        </a>
+        <Link href="/help">
+          <a>
+            <BiHelpCircle className="h-6 w-6" />
+          </a>
+        </Link>
       </div>
       <div className="flex flex-col gap-8 p-8 text-xl">
         <div className="flex w-full flex-col items-center rounded-lg  border-zinc-200  p-12 text-center dark:border-gray-700">

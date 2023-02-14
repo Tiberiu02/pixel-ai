@@ -22,9 +22,7 @@ export default function Settings() {
           <BiArrowBack className="h-6 w-6" onClick={() => router.back()} />
         </button>
         <Link href="/help">
-          <a>
-            <BiHelpCircle className="h-6 w-6" />
-          </a>
+          <BiHelpCircle className="h-6 w-6" />
         </Link>
       </div>
       <div className="flex flex-col gap-8 p-8 text-xl">

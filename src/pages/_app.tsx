@@ -8,6 +8,13 @@ import "../styles/globals.css";
 import Head from "next/head";
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    hj: { q: any[] } & (() => void);
+    _hjSettings: { hjid: number; hjsv: number };
+  }
+}
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -16,6 +23,24 @@ const MyApp: AppType<{ session: Session | null }> = ({
     if (typeof navigator.serviceWorker !== "undefined") {
       navigator.serviceWorker.register("sw.js");
     }
+  }, []);
+
+  useEffect(() => {
+    // <!-- Hotjar Tracking Code for https://pixelai.app -->
+    (function (h, o, t, j) {
+      h.hj =
+        h.hj ||
+        function (...args: any[]) {
+          (h.hj.q = h.hj.q || []).push(args);
+        };
+      h._hjSettings = { hjid: 3366955, hjsv: 6 };
+      const a = o.getElementsByTagName("head")[0]!;
+      const r = o.createElement("script");
+      r.async = true;
+      // t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      r.src = `${t}${h._hjSettings.hjid}${j}${h._hjSettings.hjsv}`;
+      a.appendChild(r);
+    })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
   }, []);
 
   return (

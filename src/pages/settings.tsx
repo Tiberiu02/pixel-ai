@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { BiArrowBack, BiHelpCircle, BiLogOut, BiTrash } from "react-icons/bi";
+import { MdOutlineFeedback } from "react-icons/md";
 import { DemandLogin } from "../components/DemandLogin";
 import { trpc } from "../utils/trpc";
 
@@ -39,6 +40,14 @@ export default function Settings() {
           </div>
         </div>
         <div className="flex flex-col items-center gap-x-8 gap-y-4 self-center">
+          <Link
+            href="https://forms.gle/VDqK2Hfwhve12qgP7"
+            target="_blank"
+            className="flex w-fit shrink-0 items-center gap-3 rounded-full border-2 border-zinc-200 bg-zinc-100 px-6 py-4 dark:border-gray-700 dark:bg-gray-800"
+          >
+            <MdOutlineFeedback />
+            Feedback
+          </Link>
           <button
             className="flex w-fit shrink-0 items-center gap-3 rounded-full border-2 border-zinc-200 bg-zinc-100 px-8 py-4 dark:border-gray-700 dark:bg-gray-800"
             onClick={() => signOut()}

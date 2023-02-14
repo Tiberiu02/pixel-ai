@@ -15,13 +15,14 @@ import {
   MIN_PHOTOS,
   userPhotosAtom,
 } from "../non-components/userPhotos";
-import { BeatLoader, RingLoader } from "react-spinners";
+import { RingLoader } from "react-spinners";
 import { TopBar } from "../components/TopBar";
 import { twMerge } from "tailwind-merge";
 import { DataURIToBlob } from "../non-components/dataUri";
 import { notifyStartAtom } from "../non-components/storage";
 import { sendNotification } from "../non-components/sendNotification";
 import { FiInfo } from "react-icons/fi";
+import { Loader } from "../components/Loader";
 
 export default function UserPhotos() {
   const [photos, setPhotos] = useAtom(userPhotosAtom);
@@ -99,10 +100,7 @@ function SelectPhotos({
             <label htmlFor="image-upload">
               <Button className="relative">
                 {loadingPhotos > 0 && (
-                  <BeatLoader
-                    color="#000"
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 dark:invert"
-                  />
+                  <Loader className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                 )}
                 <BiImageAdd
                   className={twMerge(

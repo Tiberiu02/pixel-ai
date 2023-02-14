@@ -2,7 +2,7 @@ import { signOut, useSession } from "next-auth/react";
 import { BiCog, BiLogOut } from "react-icons/bi";
 import { trpc } from "../utils/trpc";
 import { Button } from "../components/Button";
-import { BsCameraFill } from "react-icons/bs";
+import { BsCameraFill, BsStarFill } from "react-icons/bs";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { MdOutlineInsertPhoto } from "react-icons/md";
 import { useRouter } from "next/router";
@@ -15,6 +15,7 @@ import { DataURIToBlob } from "../non-components/dataUri";
 import { useAtom } from "jotai";
 import { notifyStartAtom } from "../non-components/storage";
 import { twMerge } from "tailwind-merge";
+import { Loader } from "../components/Loader";
 
 function downloadJpg(dataUri: string) {
   const a = document.createElement("a");
@@ -69,6 +70,8 @@ export default function DashboardScreen() {
   const [images, setImages] = useState(
     new Map<string, { dataUri: string; bookmarked: boolean }>()
   );
+
+  console.log(images.size, imageUrls.data?.length);
 
   useEffect(() => {
     console.log(Date.now() / 1000, loadedImages, status.data);
@@ -151,10 +154,19 @@ export default function DashboardScreen() {
         </>
       ) : (
         <>
-          <div className="flex h-full flex-col gap-1 pb-16">
-            <div className="animate-pulse self-center py-8 text-2xl">
-              Your photos are ready!
+          <div className="flex min-h-screen flex-col gap-1 pb-16">
+            <div className="bg my-8 self-center rounded-full py-4 px-8 text-xl font-bold text-black">
+              Your photos are ready
             </div>
+            {showBest &&
+              Array.from(images.entries()).every(
+                ([imgId, image]) => !image.bookmarked
+              ) && (
+                <div className="m-4 flex items-center justify-center self-center rounded-lg bg-gray-200 p-4 text-xl font-medium text-gray-700 shadow">
+                  <BsStarFill className="m-4 text-3xl" />
+                  Select your favorite photos to save them here
+                </div>
+              )}
             {Array.from(images.entries()).map(([imgId, image]) => (
               <div
                 className={twMerge(
@@ -182,8 +194,13 @@ export default function DashboardScreen() {
                 </div>
               </div>
             ))}
+            <Loader
+              className={twMerge(
+                "mt-8 self-center",
+                imageUrls.data?.length == images.size ? "opacity-0" : ""
+              )}
+            />
           </div>
-          <div></div>
           <div className="fixed bottom-0 flex w-full max-w-md justify-around p-2 font-bold drop-shadow-md">
             <button
               onClick={() => {

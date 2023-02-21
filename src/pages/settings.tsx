@@ -64,7 +64,7 @@ export default function Settings() {
           </button>
         </div>
       </div>
-      <div className="mx-auto mt-auto pb-2 text-gray-500">© Pixel.AI 2023</div>
+      <div className="mx-auto mt-auto pb-2 text-gray-500">© Pixel AI 2023</div>
       {showDelete && (
         <div className="fixed inset-0 flex h-screen w-screen items-center justify-center">
           <div

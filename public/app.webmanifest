@@ -1,6 +1,6 @@
 {
-  "name": "Pixel.ai",
-  "short_name": "Pixel.ai",
+  "name": "Pixel AI",
+  "short_name": "Pixel AI",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#222",
@@ -56,9 +56,5 @@
       "type": "image/png"
     }
   ],
-  "categories": [
-    "photo",
-    "lifestyle",
-    "social"
-  ]
+  "categories": ["photo", "lifestyle", "social"]
 }

@@ -1,7 +1,7 @@
 export async function sendNotification(body: string) {
   const result = await Notification.requestPermission();
 
-  const title = "Pixel.ai";
+  const title = "Pixel AI";
   const options: NotificationOptions = {
     body,
     icon: `/logo.png`,
